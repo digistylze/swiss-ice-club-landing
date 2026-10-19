@@ -1,0 +1,110 @@
+/* Fondateur : texte et certifications à gauche, pile de photos de Benoît à droite (Scroll Animation #71, Sticky Cards,
+   jouée en lecture automatique), puis le bloc « L'eau, contrôlée chaque jour ». Sans JS : la pile est posée en CSS. */
+#s-fondateur {
+  position: relative;
+  background: var(--night);
+  padding: clamp(84px, 8vw, 124px) 0 clamp(84px, 8vw, 120px);
+  overflow: clip;
+}
+#s-fondateur .fd__anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+
+#s-fondateur .fd__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
+  grid-template-areas: "head media" "body media";
+  grid-template-rows: auto 1fr;
+  column-gap: clamp(40px, 6vw, 104px);
+}
+#s-fondateur .fd__head { grid-area: head; }
+#s-fondateur .fd__body { grid-area: body; }
+#s-fondateur .fd__media { grid-area: media; align-self: center; }
+
+#s-fondateur .fd__title { margin-top: 22px; max-width: 24ch; font-size: clamp(36px, 3.4vw, 52px); line-height: 1.08; }
+#s-fondateur .fd__text { margin-top: 26px; max-width: 54ch; font-size: clamp(16.5px, .3vw + 13px, 18.5px); line-height: 1.6; color: var(--mist); }
+
+/* certifications : filets fins, petite croix inox (la croix du logo, en contour) */
+#s-fondateur .fd__certs { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+#s-fondateur .fd__certs li { position: relative; padding: 13px 0 13px 24px; border-top: 1px solid var(--line-light); font-size: 15px; line-height: 1.4; color: var(--pearl); }
+#s-fondateur .fd__certs li::before {
+  content: ""; position: absolute; left: 1px; top: calc(13px + .7em - 5px); width: 10px; height: 10px;
+  background: linear-gradient(var(--inox), var(--inox)) center / 1.5px 10px no-repeat, linear-gradient(var(--inox), var(--inox)) center / 10px 1.5px no-repeat;
+}
+
+/* logos en blanc : silhouette pour Wim Hof (fond transparent), inversion + écran pour Gallup (fond blanc) */
+/* le fond posé ici garde le mode « écran » de Gallup dans son groupe (le parent animé l'isole) */
+#s-fondateur .fd__logos { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 30px; margin-top: 28px; background: var(--night); }
+#s-fondateur .fd__logo { height: 32px; width: auto; opacity: .8; }
+#s-fondateur .fd__logo--whm { filter: brightness(0) invert(1); }
+#s-fondateur .fd__logo--gallup { height: 38px; clip-path: inset(4px); filter: grayscale(1) invert(1) brightness(1.35); mix-blend-mode: screen; }
+#s-fondateur .fd__cta { margin-top: 34px; }
+
+/* pile de photos : cartes 4:5 centrées, les suivantes plus petites et décalées vers le bas, assombries */
+#s-fondateur .fd__stack { position: relative; height: clamp(440px, 64vh, 620px); perspective: 1200px; cursor: pointer; }
+#s-fondateur .fd__card {
+  --dim: calc(var(--k) * .28);
+  position: absolute; top: 50%; left: 50%; z-index: calc(4 - var(--k));
+  height: 86%; aspect-ratio: 4 / 5; margin: 0; overflow: hidden;
+  background: var(--night-3);
+  transform: translate(-50%, calc(-50% + var(--k) * 10%)) scale(calc(1 - var(--k) * .15));
+}
+#s-fondateur .fd__card::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--dim); pointer-events: none; }
+#s-fondateur .fd__card img { width: 100%; height: 100%; object-fit: cover; }
+#s-fondateur .fd__card figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: 72px 24px 22px;
+  background: linear-gradient(to top, rgba(12, 13, 15, .8), rgba(12, 13, 15, 0));
+  font-family: var(--f-display); font-weight: 600; font-size: clamp(20px, 1.6vw, 26px); line-height: 1; letter-spacing: .01em; text-transform: uppercase; color: var(--pearl);
+  opacity: calc(1 - var(--dim) * 4);   /* seule la carte de devant porte sa légende */
+}
+
+/* repères de la pile : la barre de la photo courante se remplit pendant la pause ; le bouton met en pause */
+#s-fondateur .fd__ticks { display: flex; gap: 8px; width: min(100%, 230px); margin: 18px auto 0; padding: 14px 0; background: none; border: 0; cursor: pointer; }
+#s-fondateur .fd__ticks i { position: relative; flex: 1; height: 2px; overflow: hidden; background: rgba(184, 192, 198, .24); }
+#s-fondateur .fd__ticks b { position: absolute; inset: 0; background: var(--pearl); transform: scaleX(0); transform-origin: left center; }
+#s-fondateur .fd__ticks[aria-pressed="true"] b { background: var(--inox); }
+#s-fondateur .fd__ticks[hidden] { display: none; }
+
+/* l'eau : panneau sombre, anneaux de la cuve vue du dessus, trois repères */
+#s-fondateur .fd__water {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); align-items: center; gap: 32px clamp(32px, 4.5vw, 72px);
+  margin-top: clamp(56px, 6vw, 88px); padding: clamp(30px, 3.4vw, 52px);
+  background: var(--night-2); border: 1px solid var(--line-light);
+}
+#s-fondateur .fd__rings { position: absolute; z-index: -1; right: -90px; top: 50%; width: 420px; height: 420px; transform: translateY(-50%); color: var(--inox); opacity: .16; stroke-width: 1; pointer-events: none; }
+#s-fondateur .fd__rings circle { vector-effect: non-scaling-stroke; }
+#s-fondateur .fd__water h3 { font-size: clamp(28px, 2.5vw, 40px); }
+#s-fondateur .fd__water p { margin-top: 14px; max-width: 46ch; color: var(--mist); }
+#s-fondateur .fd__nw { white-space: nowrap; }
+#s-fondateur .fd__figs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#s-fondateur .fd__figs li { padding: 4px 12px 4px clamp(18px, 1.8vw, 26px); border-left: 1px solid var(--line-light); }
+#s-fondateur .fd__figs strong { display: block; font-family: var(--f-display); font-weight: 500; font-size: clamp(32px, 2.9vw, 46px); line-height: 1; color: var(--inox); text-transform: uppercase; white-space: nowrap; }
+#s-fondateur .fd__figs span { display: block; margin-top: 12px; font-size: 12.5px; font-weight: 600; line-height: 1.35; letter-spacing: .16em; text-transform: uppercase; color: var(--mist); }
+
+@media (max-width: 1024px) {
+  #s-fondateur .fd__certs { grid-template-columns: minmax(0, 1fr); }
+  #s-fondateur .fd__water { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 768px) {
+  #s-fondateur { padding: 72px 0 80px; }
+  #s-fondateur .fd__grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "media" "body"; grid-template-rows: none; }
+  #s-fondateur .fd__head, #s-fondateur .fd__body { text-align: center; }
+  #s-fondateur .fd__title { max-width: 22ch; margin-inline: auto; font-size: clamp(30px, 8vw, 38px); line-height: 1.1; }
+  #s-fondateur .fd__cta { line-height: 1.3; }
+  #s-fondateur .fd__media { margin-top: 34px; }
+  #s-fondateur .fd__stack { height: min(116vw, 470px); }
+  #s-fondateur .fd__text { margin: 18px auto 0; }
+  /* liste : alignée à gauche */
+  #s-fondateur .fd__certs { text-align: left; margin-top: 26px; }
+  #s-fondateur .fd__logos { justify-content: center; }
+  #s-fondateur .fd__logo { height: 26px; }
+  #s-fondateur .fd__logo--gallup { height: 32px; }
+  #s-fondateur .fd__water { margin-top: 52px; text-align: center; padding: 30px 22px; }
+  #s-fondateur .fd__water p { margin-inline: auto; }
+  #s-fondateur .fd__rings { right: 50%; top: -120px; transform: translateX(50%); width: 360px; height: 360px; }
+  #s-fondateur .fd__figs { grid-template-columns: minmax(0, 1fr); }
+  #s-fondateur .fd__figs li { padding: 16px 0; border-left: 0; border-top: 1px solid var(--line-light); }
+  #s-fondateur .fd__figs strong { font-size: 40px; }
+  #s-fondateur .fd__figs span { margin-top: 8px; }
+}

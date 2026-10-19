@@ -1,0 +1,21 @@
+/* Scroll Animation #69 : « ÉVEIL » apparaît, le I bascule et devient le bouton */
+#s-cta { position: relative; background: var(--stone); overflow-x: clip; }
+#s-cta .cta__intro { padding-top: clamp(64px, 7vw, 104px); padding-bottom: clamp(16px, 2vw, 32px); text-align: center; }
+#s-cta .cta__intro .eyebrow { margin-bottom: 16px; }
+#s-cta h2 { font-size: clamp(36px, 4.4vw, 68px); max-width: 13em; margin: 0 auto; }
+/* hauteur posée en JS sur la position finale du I couché */
+#s-cta .cta__stage { position: relative; width: min(100% - 2 * var(--gutter), 1040px); margin: 0 auto; }
+#s-cta .cta__word { display: block; width: 100%; height: auto; overflow: visible; }
+#s-cta .cta__l { fill: var(--ink); }
+#s-cta .cta__i { fill: var(--cembro-deep); }
+#s-cta .cta__stage:has(.cta__btn.is-on:hover) .cta__i { fill: var(--ink); }
+#s-cta .cta__word g.is-on { cursor: pointer; }
+#s-cta .cta__word g.is-on:hover .cta__i { fill: var(--ink); }
+#s-cta .cta__lbl { fill: var(--pearl); text-anchor: middle; font-family: var(--f-body); font-weight: 700; letter-spacing: .14em; pointer-events: none; }
+#s-cta .cta__btn { position: absolute; z-index: 5; left: 0; top: 0; width: 0; height: 0; min-height: 44px; padding: 0; border: 0; border-radius: 0; background: transparent; cursor: pointer; pointer-events: none; }
+#s-cta .cta__btn.is-on { pointer-events: auto; }
+#s-cta .cta__btn:focus-visible { outline: 2px solid var(--cembro-deep); outline-offset: 4px; }
+#s-cta .cta__end { display: flex; flex-direction: column; align-items: center; gap: 6px; padding-top: 14px; padding-bottom: clamp(56px, 6vw, 96px); text-align: center; }
+#s-cta .cta__end p { max-width: 34em; font-size: clamp(17px, 1.3vw, 20px); color: var(--ink-soft); }
+#s-cta .cta__tel { display: inline-block; padding: 11px 0; line-height: 22px; font-weight: 600; }
+#s-cta .cta__tel span { white-space: nowrap; }

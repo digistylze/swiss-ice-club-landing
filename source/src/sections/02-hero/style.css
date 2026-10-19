@@ -1,0 +1,139 @@
+/* Hero : la scène WebGL du bain plein cadre, texte à gauche (desktop) ou en bas (mobile), étiquettes autour du bain.
+   Le préchargement se joue dans la même scène (voir script.js). */
+#s-hero {
+  position: relative; height: 100svh; min-height: 620px; overflow: clip; isolation: isolate;
+  /* pénombre froide : un halo à peine bleuté derrière le bain, noir mat ailleurs */
+  background:
+    radial-gradient(60% 55% at var(--hx, 64%) 52%, rgba(120, 150, 165, .16) 0%, rgba(40, 48, 54, .1) 42%, rgba(12, 13, 15, 0) 72%),
+    linear-gradient(180deg, #0F1113 0%, #0C0D0F 100%);
+}
+#s-hero .hr-gl { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; touch-action: pan-y; }
+#s-hero .hr-fallback { display: none; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; z-index: 0; }
+#s-hero.is-nogl .hr-fallback { display: block; }
+#s-hero.is-nogl .hr-gl, #s-hero.is-nogl .hr-tags, #s-hero.is-nogl .hr-lines { display: none; }
+#s-hero .hr-shade {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(12, 13, 15, .78) 0%, rgba(12, 13, 15, .38) 30%, rgba(12, 13, 15, 0) 48%),
+    linear-gradient(0deg, rgba(12, 13, 15, .7) 0%, rgba(12, 13, 15, 0) 26%);
+  opacity: 0; transition: opacity 1.2s var(--ease);
+}
+#s-hero.is-posed .hr-shade, #s-hero.is-nogl .hr-shade { opacity: 1; }
+
+/* texte du hero */
+#s-hero .hr-copy {
+  position: absolute; z-index: 3; left: var(--gutter); bottom: clamp(36px, 8vh, 96px);
+  width: min(650px, 42vw); color: var(--mist);
+}
+#s-hero .hr-eyebrow { margin-bottom: 20px; }
+#s-hero .hr-title { font-size: clamp(56px, 7.4vw, 116px); line-height: .9; letter-spacing: -.01em; font-weight: 600; max-width: 6.2em; }
+#s-hero .hr-title .hr-line-mask { padding-top: .14em; margin-top: -.14em; }
+#s-hero .hr-lead { margin-top: 22px; max-width: 30em; color: #C9CFD4; font-size: clamp(16px, .45vw + 12.5px, 18.5px); }
+#s-hero .hr-ctas { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+#s-hero .hr-price { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--inox); }
+#s-hero .hr-price span + span::before { content: ""; display: inline-block; width: 5px; height: 5px; margin-right: 18px; vertical-align: middle; background: var(--red); transform: translateY(-1px); }
+
+#s-hero .hr-proof { margin-top: 10px; display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--mist); }
+#s-hero .hr-proof b { color: var(--pearl); font-weight: 600; }
+#s-hero .hr-stars { display: inline-flex; gap: 2px; }
+#s-hero .hr-stars svg { width: 13px; height: 13px; fill: var(--pearl); }
+
+/* étiquettes autour du bain : filets fins inox et point d'ancrage */
+#s-hero .hr-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; }
+#s-hero .hr-lines line { stroke: rgba(184, 192, 198, .55); stroke-width: 1; }
+#s-hero .hr-lines circle { fill: var(--pearl); }
+#s-hero .hr-lines circle.hr-ring { fill: none; stroke: rgba(243, 246, 247, .5); stroke-width: 1; }
+#s-hero .hr-tags { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+#s-hero .hr-tag {
+  position: absolute; left: 0; top: 0; width: max-content; max-width: 220px;
+  padding: 0; color: var(--mist); font-size: 13.5px; line-height: 1.4; visibility: hidden;
+}
+#s-hero .hr-tag b {
+  display: block; margin-bottom: 4px; color: var(--pearl);
+  font-family: var(--f-display); font-weight: 500; font-size: 26px; line-height: 1; letter-spacing: .01em; text-transform: uppercase;
+}
+#s-hero .hr-tag[data-side="right"] { text-align: left; }
+#s-hero .hr-tag[data-side="left"] { text-align: right; }
+
+#s-hero .hr-scroll {
+  position: absolute; z-index: 3; right: var(--gutter); bottom: clamp(36px, 8vh, 96px);
+  display: flex; align-items: center; gap: 14px; color: var(--inox); text-decoration: none;
+  font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+}
+#s-hero .hr-scroll i { position: relative; width: 1px; height: 46px; background: rgba(184, 192, 198, .3); overflow: hidden; }
+#s-hero .hr-scroll i::after { content: ""; position: absolute; left: 0; top: -40%; width: 1px; height: 40%; background: var(--pearl); animation: hr-drip 2.2s var(--ease-soft) infinite; }
+@keyframes hr-drip { to { top: 100%; } }
+
+/* pendant l'intro, le texte et les étiquettes attendent */
+html:not(.is-intro-done) #s-hero .hr-copy, html:not(.is-intro-done) #s-hero .hr-scroll { visibility: hidden; }
+
+/* ---------- préchargement ---------- */
+#s-hero .hr-pre { position: absolute; inset: 0; z-index: 5; color: var(--pearl); pointer-events: none; }
+#s-hero .hr-pre__brand {
+  position: absolute; top: 26px; left: var(--gutter); display: flex; align-items: center; gap: 12px;
+  font-family: var(--f-display); font-weight: 600; font-size: 17px; letter-spacing: .14em;
+}
+#s-hero .hr-pre__brand img { width: 30px; height: auto; }
+#s-hero .hr-pre__place { position: absolute; top: 32px; right: var(--gutter); font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--mist); }
+#s-hero .hr-pre__load { position: absolute; left: var(--gutter); bottom: calc(44px + env(safe-area-inset-bottom)); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+#s-hero .hr-pre.is-going .hr-pre__load { opacity: 0; transform: translateY(16px); }
+#s-hero .hr-pre__label { position: relative; height: 1.4em; overflow: hidden; white-space: nowrap; font-size: 12.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--inox); }
+#s-hero .hr-pre__label span { display: block; transition: transform .6s var(--ease), opacity .6s var(--ease); }
+#s-hero .hr-pre__label-b { position: absolute; left: 0; top: 0; transform: translateY(110%); opacity: 0; }
+#s-hero .hr-pre.is-ready .hr-pre__label-a { transform: translateY(-110%); opacity: 0; }
+#s-hero .hr-pre.is-ready .hr-pre__label-b { transform: none; opacity: 1; }
+/* compteur à rouleaux (Hero Animations #8) */
+#s-hero .hr-pre__count {
+  display: flex; align-items: flex-start; margin-top: 4px;
+  font-family: var(--f-display); font-weight: 500; font-size: clamp(72px, 10vw, 168px); line-height: 1;
+  font-variant-numeric: tabular-nums; text-shadow: 0 2px 30px rgba(0, 0, 0, .35);
+}
+#s-hero .hr-pre__digits { display: flex; }
+#s-hero .hr-pre__col { display: block; height: 1.12em; overflow: hidden; }
+#s-hero .hr-pre__col > span { display: flex; flex-direction: column; transition: transform .45s cubic-bezier(.3, .9, .3, 1); }
+#s-hero .hr-pre__col > span > span { display: block; height: 1.12em; line-height: 1.12; text-align: center; width: .5em; }
+#s-hero .hr-pre__col.is-hidden { width: 0; }
+#s-hero .hr-pre__pct { font-size: .3em; margin: .16em 0 0 .1em; color: var(--red); }
+#s-hero .hr-pre__temp { margin-top: 6px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--mist); }
+#s-hero .hr-pre__temp b { color: var(--frost); font-weight: 600; font-variant-numeric: tabular-nums; }
+#s-hero .hr-pre__skip {
+  position: absolute; right: var(--gutter); bottom: calc(44px + env(safe-area-inset-bottom)); pointer-events: auto;
+  min-height: 44px; padding: 0 4px; background: none; border: 0; cursor: pointer;
+  color: var(--mist); font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  text-decoration: underline; text-underline-offset: .4em; text-decoration-color: rgba(167, 174, 181, .4);
+}
+#s-hero .hr-pre__skip:hover { color: var(--pearl); }
+
+@media (max-width: 1100px) and (min-width: 769px) {
+  #s-hero .hr-copy { width: min(520px, 46vw); }
+  #s-hero .hr-tag { max-width: 170px; font-size: 12.5px; }
+  #s-hero .hr-tag b { font-size: 21px; }
+}
+@media (max-width: 768px) {
+  #s-hero { height: 100svh; min-height: 680px; background:
+    radial-gradient(90% 46% at 50% 30%, rgba(120, 150, 165, .16) 0%, rgba(12, 13, 15, 0) 72%), #0C0D0F; }
+  #s-hero .hr-shade { background: linear-gradient(0deg, rgba(12, 13, 15, .96) 0%, rgba(12, 13, 15, .82) 34%, rgba(12, 13, 15, 0) 54%); }
+  #s-hero .hr-copy { left: 20px; right: 20px; width: auto; bottom: 26px; text-align: center; }
+  #s-hero .hr-eyebrow { margin-bottom: 12px; }
+  #s-hero .hr-title { font-size: clamp(46px, 13vw, 64px); max-width: none; }
+  #s-hero .hr-lead { margin: 12px auto 0; font-size: 15px; line-height: 1.5; }
+  #s-hero .hr-ctas { margin-top: 18px; justify-content: center; }
+  #s-hero .hr-ctas .btn { flex: 1 1 100%; min-height: 50px; }
+  #s-hero .hr-ctas .btn--ghost { min-height: 44px; }
+  #s-hero .hr-price { justify-content: center; margin-top: 12px; font-size: 11.5px; gap: 4px 12px; }
+  #s-hero .hr-price span + span::before { margin-right: 12px; }
+  #s-hero .hr-proof { justify-content: center; margin-top: 8px; font-size: 12.5px; }
+  #s-hero .hr-scroll { display: none; }
+  #s-hero .hr-tag { max-width: 112px; }
+  #s-hero .hr-tag span { display: none; }
+  #s-hero .hr-tag b { font-size: 17px; margin: 0; line-height: 1.05; }
+  #s-hero .hr-pre__count { font-size: 84px; }
+  #s-hero .hr-pre__place { display: none; }
+}
+@media (max-height: 760px) and (min-width: 769px) {
+  #s-hero .hr-copy { bottom: 28px; }
+  #s-hero .hr-eyebrow { margin-bottom: 12px; }
+  #s-hero .hr-title { font-size: clamp(46px, 5.4vw, 86px); }
+  #s-hero .hr-lead { margin-top: 14px; }
+  #s-hero .hr-ctas { margin-top: 20px; }
+}

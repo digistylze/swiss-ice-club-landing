@@ -1,0 +1,102 @@
+/* Votre projet · Scroll Animation #71 (Sticky Cards) : l'étape à gauche, la pile de photos à droite, puis les engagements */
+#s-projet { position: relative; background: var(--night); color: var(--mist); overflow-x: clip; }
+#s-projet .pj-anchor { position: absolute; top: var(--nav-h); left: 0; width: 1px; height: 1px; pointer-events: none; }
+
+/* --- par défaut (mobile, tablette, mouvement réduit) : étapes empilées, photo puis texte --- */
+#s-projet .pj-pin { padding-top: clamp(72px, 9vw, 112px); }
+#s-projet .pj-scene { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+#s-projet .pj-head .eyebrow { margin-bottom: 18px; }
+#s-projet h2 { font-size: clamp(38px, 3.9vw, 58px); line-height: 1; max-width: 11em; }
+#s-projet .pj-index { display: none; }
+#s-projet .pj-steps {
+  list-style: none; margin: clamp(36px, 5vw, 56px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 44px 24px;
+}
+#s-projet .pj-card { position: relative; margin: 0; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 3px; background: var(--night-3); }
+#s-projet .pj-card img { width: 100%; height: 100%; object-fit: cover; }
+#s-projet .pj-card::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(19, 21, 23, .78), rgba(19, 21, 23, 0) 52%);
+}
+#s-projet .pj-card__shade { position: absolute; inset: 0; z-index: 2; background: var(--night); opacity: 0; pointer-events: none; }
+#s-projet .pj-card__n {
+  position: absolute; left: 20px; bottom: 14px; z-index: 1;
+  font-family: var(--f-display); font-weight: 650; font-stretch: 108%; font-size: 52px; line-height: 1; letter-spacing: -.02em;
+  color: var(--pearl); font-variant-numeric: lining-nums tabular-nums;
+}
+/* une lame dorée au-dessus du numéro, comme les lames du logo */
+#s-projet .pj-card__n::before {
+  content: ""; display: block; width: 30px; height: 5px; margin-bottom: 12px; background: var(--or);
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+}
+#s-projet .pj-step__body { padding-top: 22px; }
+#s-projet .pj-step__t { font-size: clamp(24px, 2vw, 30px); line-height: 1.12; }
+#s-projet .pj-step__t span { display: block; }
+#s-projet .pj-step__p { margin-top: 12px; font-size: clamp(16px, .3vw + 14px, 17.5px); line-height: 1.6; max-width: 34em; }
+
+/* --- desktop (classe posée par le script) : scène épinglée d'un écran, cartes empilées dans la colonne de droite --- */
+#s-projet.is-deck .pj-pin { height: 100svh; min-height: 600px; padding: calc(var(--nav-h) + 24px) 0 36px; overflow: clip; }
+#s-projet.is-deck .pj-scene {
+  --gap: clamp(40px, 5vw, 80px);
+  --sh: calc(100svh - var(--nav-h) - 60px);   /* hauteur de la scène */
+  position: relative; height: 100%;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--gap);
+}
+/* le titre s'aligne sur le haut de la carte, l'étape sur son bas (carte = 80 % de la scène, centrée) */
+#s-projet.is-deck .pj-copy { display: flex; flex-direction: column; justify-content: space-between; padding: calc(var(--sh) * .1) 0; }
+#s-projet.is-deck h2 { font-size: clamp(40px, 3.9vw, 60px); }
+#s-projet.is-deck .pj-head { margin-bottom: 32px; }
+/* sommaire : quatre lignes séparées de filets, l'étape en cours passe en clair et son filet se dore */
+#s-projet.is-deck .pj-index { display: block; list-style: none; margin: 0 0 clamp(20px, 3.4vh, 34px); padding: 0; }
+#s-projet.is-deck .pj-index li {
+  position: relative; display: grid; grid-template-columns: 3.4em minmax(0, 1fr); align-items: baseline;
+  padding: clamp(10px, 1.6vh, 16px) 0; border-top: 1px solid var(--line-light);
+  font-family: var(--f-display); font-weight: 600; font-stretch: 108%; letter-spacing: -.01em;
+  font-size: clamp(18px, min(1.65vw, 2.8vh), 25px); line-height: 1.15;
+  color: rgba(244, 241, 234, .34); transition: color .6s var(--ease);
+}
+#s-projet.is-deck .pj-index li:last-child { border-bottom: 1px solid var(--line-light); }
+#s-projet.is-deck .pj-index li::before {
+  content: ""; position: absolute; top: -1px; left: 0; width: 100%; height: 2px; background: var(--or);
+  transform: scaleX(0); transform-origin: 0 50%; transition: transform .8s var(--ease);
+}
+#s-projet.is-deck .pj-index span {
+  font-family: var(--f-body); font-weight: 600; font-size: 13px; letter-spacing: .16em; font-stretch: 100%;
+  color: var(--steel); transition: color .6s var(--ease);
+}
+#s-projet.is-deck .pj-index li.is-on { color: var(--pearl); }
+#s-projet.is-deck .pj-index li.is-on::before { transform: none; }
+#s-projet.is-deck .pj-index li.is-on span { color: var(--or); }
+/* le texte de l'étape : les quatre paragraphes superposés, seul celui de l'étape en cours est visible */
+#s-projet.is-deck .pj-steps { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; gap: 0; }
+#s-projet.is-deck .pj-step { grid-area: 1 / 1; }
+#s-projet.is-deck .pj-step__body { padding: 0; }
+/* le titre visible est celui du sommaire : le vrai titre reste lisible par les lecteurs d'écran */
+#s-projet.is-deck .pj-step__t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+#s-projet.is-deck .pj-step__p { margin-top: 0; max-width: 31em; font-size: clamp(16.5px, .35vw + 12px, 18px); }
+/* la pile : centrée dans la colonne de droite, positionnée par rapport à la scène (seul ancêtre positionné) */
+#s-projet.is-deck .pj-card {
+  position: absolute; top: 50%;
+  left: calc(var(--gutter) + var(--gap) + (100% - 2 * var(--gutter) - var(--gap)) * .75);
+  height: 80%; width: auto; aspect-ratio: 4 / 5;
+  max-width: calc((100% - 2 * var(--gutter) - var(--gap)) / 2);
+  border-radius: 4px; box-shadow: 0 40px 60px -40px rgba(0, 0, 0, .7);
+  will-change: transform;
+}
+#s-projet.is-deck .pj-card__n { left: clamp(22px, 2vw, 32px); bottom: clamp(20px, 2vw, 30px); font-size: clamp(64px, 6vw, 104px); }
+
+/* --- engagements --- */
+#s-projet .pj-promises {
+  list-style: none; max-width: var(--maxw); margin: 0 auto;
+  padding: clamp(56px, 6vw, 72px) var(--gutter) clamp(72px, 8vw, 112px);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 22px 32px;
+}
+#s-projet.is-deck .pj-promises { padding-top: 24px; }
+#s-projet .pj-promises li {
+  position: relative; padding-top: 20px; border-top: 1px solid var(--line-light);
+  color: var(--pearl); font-size: 16.5px; font-weight: 500; line-height: 1.4; text-wrap: balance;
+}
+#s-projet .pj-promises li::before {
+  content: ""; position: absolute; top: -3px; left: 0; width: 34px; height: 5px; background: var(--or);
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+}

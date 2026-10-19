@@ -1,0 +1,125 @@
+/* Navigation Menus #2 : pastille qui se déploie en panneau (géométrie posée par GSAP), formulaire rapide en 2 étapes.
+   + la pilule flottante en bas à droite (desktop) d'où le panneau peut partir. */
+
+/* ---------- pilule flottante ---------- */
+.devis-fab {
+  position: fixed; z-index: 70; right: 24px; bottom: 24px;
+  display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 22px 0 8px;
+  border: 0; border-radius: 999px; cursor: pointer; text-align: left;
+  background: var(--pearl); color: var(--night);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, .55), 0 0 0 1px rgba(14, 16, 20, .06);
+  transform: translateY(140%); opacity: 0; visibility: hidden;
+  transition: transform .7s var(--ease), opacity .5s var(--ease), visibility 0s linear .7s, background .35s var(--ease);
+}
+html.is-intro-done .devis-fab { transform: none; opacity: 1; visibility: visible; transition: transform .9s var(--ease) .4s, opacity .6s var(--ease) .4s, visibility 0s, background .35s var(--ease); }
+html.is-devis-open .devis-fab { opacity: 0; visibility: hidden; transition: opacity .2s, visibility 0s linear .2s; }
+html.is-intro-done .devis-fab.is-away { transform: translateY(140%); opacity: 0; visibility: hidden; transition: transform .6s var(--ease), opacity .4s, visibility 0s linear .6s; }
+.devis-fab:hover { background: #fff; }
+.devis-fab:focus-visible { outline: 2px solid var(--cembro); outline-offset: 3px; }
+.devis-fab__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--night); }
+.devis-fab__icon svg { width: 19px; height: 19px; fill: var(--cembro); animation: devis-moon 6s ease-in-out infinite; }
+@keyframes devis-moon { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(10deg); } }
+.devis-fab__txt { display: flex; flex-direction: column; gap: 3px; line-height: 1; }
+.devis-fab__txt strong { font-weight: 700; font-size: 14px; letter-spacing: .02em; }
+.devis-fab__txt span { font-size: 12px; letter-spacing: .06em; color: var(--ink-soft); }
+@media (max-width: 768px) { .devis-fab { display: none; } }   /* mobile : la barre du bas fait ce travail */
+
+/* ---------- panneau ---------- */
+#s-devis { position: fixed; z-index: 100; top: 0; bottom: 0; left: 0; width: 100vw; visibility: hidden; pointer-events: none; }
+#s-devis.is-open { pointer-events: auto; }
+#s-devis .devis__backdrop { position: absolute; inset: 0; background: rgba(6, 7, 10, .55); opacity: 0; }
+
+#s-devis .devis__panel {
+  position: fixed; top: 12px; right: 12px; width: 110px; height: 46px;
+  display: flex; flex-direction: column; overflow: hidden;
+  border-radius: 999px; background: var(--night-2); color: var(--pearl);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .7), 0 0 0 1px var(--line-light);
+}
+/* le contenu n'apparaît qu'une fois que le panneau a de la place (.nav--visible de l'original) */
+#s-devis .devis__form, #s-devis .devis__foot { opacity: 0; }
+#s-devis.is-shown .devis__form, #s-devis.is-shown .devis__foot { opacity: 1; }
+
+#s-devis .devis__form { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; padding: 28px 32px 22px; }
+#s-devis .devis__head { flex: none; padding-right: 136px; margin-bottom: 20px; }
+#s-devis .devis__title { color: var(--pearl); font-size: clamp(28px, 2.3vw, 36px); line-height: 1.04; }
+#s-devis .devis__lead { text-wrap: pretty; margin-top: 10px; font-size: 15.5px; line-height: 1.5; color: var(--mist); }
+#s-devis .devis__progress { display: flex; align-items: center; gap: 6px; margin-top: 18px; }
+#s-devis .devis__count { margin: 0 8px 0 0; font-size: 12px; font-weight: 700; letter-spacing: .16em; line-height: 1; color: var(--cembro); }
+#s-devis .devis__seg { flex: 1; max-width: 72px; height: 3px; border-radius: 2px; background: var(--line-light); transition: background .5s var(--ease); }
+#s-devis .devis__seg.is-done { background: var(--cembro); }
+
+#s-devis fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+#s-devis .devis__step { flex: 1 0 auto; display: flex; flex-direction: column; }
+#s-devis .devis__step[hidden] { display: none; }
+#s-devis legend { padding: 0; }
+#s-devis .devis__q { margin-bottom: 14px; font-family: var(--f-display); font-weight: 500; font-size: 28px; line-height: 1.1; color: var(--pearl); }
+#s-devis .devis__label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 600; color: var(--pearl); }
+#s-devis .devis__label em { font-style: normal; font-weight: 400; color: var(--mist); }
+
+/* choix : boutons radio natifs, masqués mais focalisables, présentés en cartes */
+#s-devis .devis__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+#s-devis .devis__chips--col { flex-direction: column; flex-wrap: nowrap; }
+#s-devis .devis__chip { position: relative; cursor: pointer; }
+#s-devis .devis__chip input { position: absolute; inset: 0; opacity: 0; margin: 0; pointer-events: none; }
+#s-devis .devis__chip > span {
+  display: flex; flex-direction: column; gap: 4px; min-height: 56px; justify-content: center; padding: 12px 18px;
+  border: 1px solid rgba(243, 238, 230, .22); border-radius: 16px;
+  transition: background .25s, border-color .25s, color .25s;
+}
+#s-devis .devis__chip strong { font-size: 16px; font-weight: 600; line-height: 1.25; color: var(--pearl); }
+#s-devis .devis__chip em { font-style: normal; font-size: 14px; line-height: 1.35; color: var(--mist); }
+#s-devis .devis__chip:hover > span { border-color: rgba(243, 238, 230, .55); }
+#s-devis .devis__chip input:checked + span { background: var(--pearl); border-color: var(--pearl); }
+#s-devis .devis__chip input:checked + span strong { color: var(--night); }
+#s-devis .devis__chip input:checked + span em { color: var(--ink-soft); }
+#s-devis .devis__chip input:focus-visible + span { outline: 2px solid var(--cembro); outline-offset: 2px; }
+
+#s-devis .devis__field { display: block; margin-top: 14px; }
+#s-devis .devis__step > .devis__field:first-of-type { margin-top: 0; }
+#s-devis .devis__field input, #s-devis .devis__field textarea {
+  display: block; width: 100%; padding: 12px 16px; border: 1px solid rgba(243, 238, 230, .25); border-radius: 14px;
+  background: rgba(243, 238, 230, .05); color: var(--pearl); font: inherit; font-size: 16px; line-height: 1.4; resize: vertical;
+}
+#s-devis .devis__field input:focus, #s-devis .devis__field textarea:focus { outline: none; border-color: var(--cembro); background: rgba(243, 238, 230, .08); }
+#s-devis [aria-invalid="true"] { border-color: #F2A48C !important; }
+#s-devis .devis__chip input[aria-invalid="true"] + span { border-color: #F2A48C; }
+
+#s-devis .devis__error { min-height: 1.4em; margin: 12px 0 4px; font-size: 15px; font-weight: 600; color: #F2A48C; }
+#s-devis .devis__error:empty { min-height: 0; margin: 6px 0 0; }
+/* actions calées en bas du panneau, quelle que soit la hauteur de l'étape */
+#s-devis .devis__actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: auto; padding-top: 14px; }
+#s-devis .devis__actions .devis__next { margin-left: auto; }
+#s-devis .devis__back {
+  min-height: 44px; padding: 0 2px; border: 0; background: none; cursor: pointer;
+  font-size: 15px; font-weight: 600; color: var(--pearl); text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px;
+}
+#s-devis .devis__back:hover { color: var(--cembro); }
+#s-devis .devis__send { display: grid; gap: 10px; margin-top: 8px; }
+#s-devis .devis__status { margin-top: 10px; font-size: 15px; color: var(--cembro); }
+#s-devis .devis__status:empty { display: none; }
+
+#s-devis .devis__foot { flex: none; padding: 14px 32px calc(16px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line-light); font-size: 14px; line-height: 1.45; color: var(--mist); text-wrap: pretty; }
+#s-devis .devis__foot a { color: var(--pearl); font-weight: 600; white-space: nowrap; text-underline-offset: .2em; }
+#s-devis .devis__foot a:hover { color: var(--cembro); }
+
+/* bouton de la pastille : deux états empilés, le curseur monte pour passer de « Votre projet » à « Fermer » */
+#s-devis .devis__close { position: fixed; z-index: 2; top: 16px; right: 24px; width: 130px; height: 44px; overflow: hidden; padding: 0; border: 0; border-radius: 999px; background: none; cursor: pointer; }
+#s-devis .devis__slider { position: relative; display: block; width: 100%; height: 200%; pointer-events: none; }
+#s-devis .devis__state {
+  display: flex; align-items: center; justify-content: center; gap: 8px; height: 50%;
+  background: var(--pearl); color: var(--night); font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; line-height: 1;
+}
+#s-devis .devis__state--close { background: rgba(243, 238, 230, .1); color: var(--pearl); box-shadow: inset 0 0 0 1px rgba(243, 238, 230, .3); border-radius: 999px; }
+#s-devis .devis__state svg { width: 13px; height: 13px; flex: none; }
+#s-devis .devis__state path { fill: none; stroke: currentColor; stroke-width: 2.2; }
+#s-devis .devis__close:hover .devis__state--close { background: var(--pearl); color: var(--night); }
+
+@media (max-width: 768px) {
+  #s-devis .devis__panel { border-radius: 0; box-shadow: none; }
+  #s-devis .devis__form { padding: 18px var(--gutter) 20px; }
+  #s-devis .devis__head { padding-right: 56px; margin-bottom: 18px; }
+  #s-devis .devis__foot { padding-left: var(--gutter); padding-right: var(--gutter); }
+  #s-devis .devis__close-txt { display: none; }
+  #s-devis .devis__state svg { width: 18px; height: 18px; }
+  #s-devis .devis__chip > span { padding: 10px 16px; }
+}

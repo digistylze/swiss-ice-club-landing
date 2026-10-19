@@ -1,0 +1,113 @@
+/* Services : Scroll Animation #40 (la photo coupée en trois cartes qui se retournent) + bande Daniel Soares et engagements */
+#s-services { position: relative; background: var(--stone); overflow-x: clip; }
+#s-services .sv-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+#s-services .sv-head { text-align: center; }
+#s-services .sv-head .eyebrow { margin-bottom: 14px; }
+
+/* scène épinglée sur desktop (l'effet l'exige : la photo occupe l'écran pendant qu'elle se découpe) */
+#s-services .sv-stage {
+  position: relative; height: 100svh; min-height: 620px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+  padding: 84px var(--gutter) 40px;
+}
+#s-services .sv-title { font-size: clamp(36px, min(4.4vw, 7vh), 72px); text-align: center; max-width: 13em; margin: 0 auto; }
+
+#s-services .sv-cards { display: flex; gap: 0; width: min(76vw, 1100px); perspective: 1000px; }
+#s-services .sv-card {
+  --r: 3px;
+  position: relative; flex: 1 1 0; min-width: 0;
+  display: grid; aspect-ratio: var(--ar, 2 / 3);
+  transform-style: preserve-3d; transform-origin: 50% 100%;
+}
+#s-services .sv-card:nth-child(1) { --k: 0; border-radius: var(--r) 0 0 var(--r); }
+#s-services .sv-card:nth-child(2) { --k: 1; }
+#s-services .sv-card:nth-child(3) { --k: 2; border-radius: 0 var(--r) var(--r) 0; }
+
+#s-services .sv-card__front,
+#s-services .sv-card__back {
+  grid-area: 1 / 1; border-radius: inherit; overflow: hidden;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+/* une seule photo répartie sur les trois cartes : chaque carte en montre un tiers (--z : zoom, --py : cadrage vertical) */
+#s-services .sv-card__front {
+  --z: 1.04; --py: 60%;
+  background-color: var(--night); background-repeat: no-repeat;
+  background-size: calc(300% * var(--z)) auto;
+  background-position: calc(var(--k) / (3 * var(--z) - 1) * 100%) var(--py);
+  box-shadow: 0 34px 50px -36px rgba(14, 16, 20, .55);
+}
+/* dos : anthracite pour les cartes extérieures, pierre au centre ; une fine lame dorée en tête, comme les lames du logo */
+#s-services .sv-card__back {
+  position: relative; transform: rotateY(180deg);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 14px;
+  padding: clamp(22px, 2vw, 32px);
+  background: var(--night); color: var(--pearl);
+  box-shadow: 0 34px 50px -36px rgba(14, 16, 20, .55);
+}
+#s-services .sv-card__back::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--or);
+}
+#s-services .sv-card__n {
+  margin-bottom: auto; font-family: var(--f-display); font-weight: 650; font-stretch: 108%;
+  font-size: calc(clamp(44px, 4vw, 64px) * var(--fit, 1)); line-height: 1; letter-spacing: -.02em; color: var(--or);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+#s-services .sv-card__back h3 { color: inherit; font-size: calc(clamp(24px, 2vw, 32px) * var(--fit, 1)); }
+#s-services .sv-card__back p { font-size: calc(clamp(15px, 1vw, 16.5px) * var(--fit, 1)); line-height: 1.55; color: var(--mist); }
+#s-services .sv-card__btn {
+  align-self: flex-start; min-height: 46px; margin-top: 6px; padding: .8em 1.25em; font-size: 11.5px; letter-spacing: .09em; white-space: nowrap;
+  background: var(--or); color: var(--night);
+}
+#s-services .sv-card__btn:hover { background: var(--or-2); color: var(--night); }
+#s-services .sv-card:nth-child(2) .sv-card__back { background: var(--stone-2); color: var(--ink); }
+#s-services .sv-card:nth-child(2) .sv-card__back::before { background: var(--or-deep); }
+#s-services .sv-card:nth-child(2) .sv-card__n { color: var(--or-deep); }
+#s-services .sv-card:nth-child(2) .sv-card__back p { color: var(--ink-soft); }
+#s-services .sv-card:nth-child(2) .sv-card__btn { background: var(--ink); color: var(--pearl); }
+#s-services .sv-card:nth-child(2) .sv-card__btn:hover { background: var(--or-deep); color: var(--pearl); }
+
+/* bande : Daniel Soares + trois engagements */
+#s-services .sv-band {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px 72px; align-items: end;
+  padding-top: clamp(32px, 4vw, 64px); padding-bottom: clamp(64px, 7vw, 104px);
+}
+#s-services .sv-story { max-width: 32em; font-size: clamp(17px, 1.15vw, 20px); line-height: 1.6; color: var(--ink-soft); }
+#s-services .sv-points { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+#s-services .sv-points li { display: flex; flex-direction: column; gap: 18px; padding-top: 18px; border-top: 1px solid var(--line); }
+#s-services .sv-points svg {
+  width: 30px; height: 30px; fill: none; stroke: var(--or-deep); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+#s-services .sv-points li > span {
+  font-family: var(--f-display); font-weight: 600; font-stretch: 108%; font-size: clamp(19px, 1.45vw, 24px);
+  line-height: 1.2; letter-spacing: -.012em; color: var(--ink); text-wrap: balance;
+}
+#s-services .sv-nw { white-space: nowrap; }
+
+/* portables à écran bas : marges resserrées. La taille des cartes et l'échelle du texte (--fit) sont réglées par script.js
+   d'après la hauteur réelle du texte, pour qu'il tienne toujours dans la carte. */
+@media (min-width: 1000px) and (max-height: 860px) {
+  #s-services .sv-card__back { padding: 20px 18px; gap: 10px; }
+  #s-services .sv-card__btn { padding: .8em 1.15em; letter-spacing: .07em; }
+  #s-services .sv-card__n { font-size: calc(40px * var(--fit, 1)); }
+  #s-services .sv-card__back h3 { font-size: calc(22px * var(--fit, 1)); }
+  #s-services .sv-card__back p { font-size: calc(14px * var(--fit, 1)); line-height: 1.5; }
+}
+
+/* mobile et tablette : cartes en colonne, chaque carte se retourne au passage */
+@media (max-width: 999px) {
+  #s-services .sv-stage { height: auto; min-height: 0; gap: 32px; padding: clamp(64px, 12vw, 96px) var(--gutter) 8px; }
+  #s-services .sv-cards { width: 100%; max-width: 480px; display: grid; grid-auto-rows: 1fr; gap: 12px; perspective: 1200px; }
+  #s-services .sv-card { aspect-ratio: auto; min-height: 260px; }
+  #s-services .sv-card:nth-child(n) { border-radius: var(--r); }
+  /* une bande d'un tiers de photo sur une carte en largeur montre surtout du ciel : chaque carte reprend la photo entière */
+  #s-services .sv-card__front { background-size: cover; background-position: 50% 62%; }
+  #s-services .sv-band { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  #s-services .sv-points { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  #s-services .sv-points li { flex-direction: row; align-items: center; gap: 16px; padding: 16px 0; }
+  #s-services .sv-points li:last-child { border-bottom: 1px solid var(--line); }
+  #s-services .sv-points svg { width: 26px; height: 26px; flex: none; }
+  #s-services .sv-points li > span { font-size: 19px; }
+}
+
+/* écran très bas : le grand numéro décoratif s'efface plutôt que de rogner le texte (posé par script.js) */
+#s-services.sv-tight .sv-card__n { display: none; }

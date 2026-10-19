@@ -1,0 +1,129 @@
+<!-- 12-reservation · Navigation Menus #2 : la pastille d'où l'on clique (pastille flottante en bas à droite, bouton « Réserver »
+     de la barre ou tout autre bouton de réservation) se déploie en grand panneau : réservation rapide en 2 étapes. -->
+<section id="s-reservation" aria-label="Réservation">
+  <button class="rs-fab" type="button" data-book="decouverte" aria-label="Réserver une Séance Découverte, 120 CHF">
+    <span class="rs-fab__icon" aria-hidden="true"></span>
+    <span class="rs-fab__txt"><strong>Réserver</strong><span>Séance découverte · 120&nbsp;CHF</span></span>
+    <svg class="rs-fab__arrow" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+  </button>
+
+  <div class="rs-layer">
+    <div class="rs-backdrop" aria-hidden="true"></div>
+    <div class="rs-panel" id="rs-panel" role="dialog" aria-modal="true" aria-labelledby="rs-title">
+      <form class="rs-form" novalidate data-lenis-prevent>
+        <div class="rs-head">
+          <h2 class="rs-title" id="rs-title">Réserver une séance</h2>
+          <p class="rs-lead">Sur réservation uniquement, à Carouge.</p>
+          <div class="rs-progress">
+            <p class="rs-count" aria-live="polite"></p>
+            <span class="rs-seg"></span><span class="rs-seg"></span>
+          </div>
+        </div>
+
+        <fieldset class="rs-step" data-step="1">
+          <legend class="rs-q">Quelle expérience ?</legend>
+
+          <div class="rs-scroll">
+          <div class="rs-group">
+            <p class="rs-group__title">Pour commencer</p>
+            <div class="rs-opts">
+              <label class="rs-opt"><input type="radio" name="offre" value="decouverte" data-detail="Respiration consciente, sauna infrarouge, bain froid et oxygénation cellulaire. Une expérience complète, accompagnée et adaptée à votre niveau."><span><b class="rs-opt__tag">Recommandée</b><strong>Séance Découverte</strong><em>60 à 75 min · 120&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="ice-discovery" data-detail="Une première immersion encadrée pour apprivoiser le froid, sa respiration et ses sensations, à votre rythme."><span><strong>Ice Discovery</strong><em>45 min · 45&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="entretien" data-detail="Entretien découverte gratuit, 15 minutes, sans engagement. Si vous hésitez encore, commencez par là."><span><strong>Entretien gratuit</strong><em>15 min · gratuit</em></span></label>
+            </div>
+          </div>
+
+          <div class="rs-group">
+            <p class="rs-group__title">En privé</p>
+            <div class="rs-opts">
+              <label class="rs-opt"><input type="radio" name="offre" value="privee-60" data-detail="Une heure entièrement dédiée à votre corps et à votre équilibre. Seul ou à quatre, l'espace est à vous."><span><strong>Expérience Privée</strong><em>60 min · 180&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="privee-120" data-detail="Deux heures rien que pour vous. Seul ou à quatre, l'espace est à vous."><span><strong>Expérience Privée</strong><em>120 min · 300&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="ice-premium" data-detail="L'expérience signature, qui se termine par l'oxygénation cellulaire."><span><strong>Ice Premium</strong><em>75 min · 180&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="contrast" data-detail="Chaud et froid, en alternance."><span><strong>Contrast Therapy</strong><em>60 min · 140&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="infratherapie" data-detail="En partenariat avec VitalTech Suisse."><span><strong>Infrathérapie</strong><em>60 min · 120&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="infroid" data-detail="InfroidThérapie, le protocole maison du club."><span><strong>Infroidthérapie</strong><em>75 min · 180&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="sauna" data-detail="Le sauna, rien que pour vous."><span><strong>Sauna privé</strong><em>45 min · 50&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="coaching" data-detail="Avec un coach certifié Gallup CliftonStrengths."><span><strong>Coaching personnalisé</strong><em>60 min · 180&nbsp;CHF</em></span></label>
+            </div>
+          </div>
+
+          <div class="rs-group">
+            <p class="rs-group__title">Pratiquants</p>
+            <div class="rs-opts">
+              <label class="rs-opt"><input type="radio" name="offre" value="ice-performance" data-detail="Approfondir sa pratique."><span><strong>Ice Performance</strong><em>30 min · 35&nbsp;CHF</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="free-plunge" data-detail="Pratiquer à son rythme. Pratique autonome. Supervision professionnelle."><span><strong>Ice Free Plunge</strong><em>15 min · 25&nbsp;CHF</em></span></label>
+            </div>
+          </div>
+
+          <div class="rs-group rs-group--wide">
+            <p class="rs-group__title">Groupes</p>
+            <div class="rs-opts">
+              <label class="rs-opt"><input type="radio" name="offre" value="team" data-detail="Team building d'une demi-journée pour 5 à 8 participants. Ateliers dans vos locaux dès 500&nbsp;CHF, ou un accompagnement sur mesure sur plusieurs semaines." data-form="team"><span><strong>Team building</strong><em>Demi-journée · 300&nbsp;CHF par personne</em></span></label>
+              <label class="rs-opt"><input type="radio" name="offre" value="le30" data-detail="30 membres. Une année pour faire de votre bien-être une priorité. Places limitées, adhésion annuelle." data-form="le30"><span><strong>LE 30 · Cercle Privé</strong><em>Adhésion annuelle · sur demande</em></span></label>
+            </div>
+          </div>
+
+          </div>
+          <p class="rs-error" id="rs-err-1" role="alert"></p>
+          <div class="rs-actions">
+            <button class="btn rs-next" type="button">Continuer</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="rs-step" data-step="2" hidden>
+          <legend class="rs-q">Votre créneau</legend>
+
+          <div class="rs-scroll">
+          <div class="rs-pick">
+            <div class="rs-pick__top">
+              <p class="rs-pick__label">Votre choix</p>
+              <button class="rs-back" type="button">Modifier</button>
+            </div>
+            <p class="rs-pick__name"></p>
+            <p class="rs-pick__meta"></p>
+            <p class="rs-pick__detail"></p>
+          </div>
+
+          <!-- séances : l'agenda en ligne ; entretien : Google Agenda -->
+          <div class="rs-go">
+            <a class="btn rs-go__btn" href="https://book.agenda.ch/services?companyId=17167" target="_blank" rel="noopener">Voir les disponibilités en ligne<svg class="rs-ext" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7 6h7v7"/></svg><span class="sr-only"> (nouvel onglet)</span></a>
+            <div class="rs-go__notes">
+            <p class="rs-go__note" data-for="place">Rendez-vous Chemin du Faubourg-de-Cruseilles <span class="rs-nw">15-17,</span> à Carouge.</p>
+            <p class="rs-go__note" data-for="kit">À apporter : maillot de bain, serviette, bouteille d'eau, tongs.</p>
+            <p class="rs-go__note" data-for="cal">Quinze minutes pour poser vos questions avant votre premier bain.</p>
+            </div>
+            <div class="rs-safe" data-for="cold">
+              <p class="rs-safe__title">Bon à savoir</p>
+              <p>Un questionnaire de santé est rempli avant la première séance. Le froid est déconseillé en cas de problèmes cardiovasculaires ou respiratoires, de troubles de la circulation, d'hypersensibilité au froid et pendant la grossesse.</p>
+            </div>
+          </div>
+
+          <!-- Team building et LE 30 : une demande rédigée, envoyée depuis votre messagerie ou WhatsApp -->
+          <div class="rs-ask" hidden>
+            <label class="rs-field"><span class="rs-label">Nom</span><input name="nom" type="text" autocomplete="name" required aria-describedby="rs-err-2"></label>
+            <label class="rs-field"><span class="rs-label">Téléphone ou e-mail</span><input name="contact" type="text" autocomplete="email" required aria-describedby="rs-err-2"></label>
+            <label class="rs-field"><span class="rs-label">Message <em>(facultatif)</em></span><textarea name="message" rows="2"></textarea></label>
+            <p class="rs-error" id="rs-err-2" role="alert"></p>
+            <div class="rs-send">
+              <button class="btn" type="button" data-send="mail">Envoyer par e-mail</button>
+              <button class="btn btn--ghost" type="button" data-send="wa">Envoyer par WhatsApp</button>
+            </div>
+            <p class="rs-status" aria-live="polite"></p>
+          </div>
+          </div>
+        </fieldset>
+      </form>
+      <div class="rs-foot">
+        <p class="rs-foot__links">Une question ? <a href="https://wa.me/41782487529" target="_blank" rel="noopener">WhatsApp<span class="sr-only"> (nouvel onglet)</span></a> <span aria-hidden="true">·</span> <a href="tel:+41782477525">Appeler le +41 78 247 75 25</a></p>
+        <p class="rs-foot__note">Rien n'est envoyé sans votre clic dans votre messagerie ou WhatsApp.</p>
+      </div>
+    </div>
+    <!-- bouton de la pastille (original : « Menu » / « Close ») : « Réserver » glisse vers « Fermer » -->
+    <button class="rs-close" type="button" aria-label="Fermer la réservation" aria-controls="rs-panel">
+      <span class="rs-slider" aria-hidden="true">
+        <span class="rs-state">Réserver</span>
+        <span class="rs-state rs-state--close"><span class="rs-close__txt">Fermer</span><svg viewBox="0 0 20 20"><path d="M4 4 16 16M16 4 4 16"/></svg></span>
+      </span>
+    </button>
+  </div>
+</section>

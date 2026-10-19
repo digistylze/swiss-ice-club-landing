@@ -1,0 +1,36 @@
+/* Scroll Animation #69 : « FROID » apparaît, le I bascule et devient le bouton rouge */
+#s-cta { position: relative; background: var(--ice); overflow-x: clip; }
+#s-cta .cta__intro { padding-top: clamp(64px, 7vw, 104px); padding-bottom: clamp(28px, 2.6vw, 40px); text-align: center; }
+#s-cta .cta__intro .eyebrow { margin-bottom: 18px; }
+#s-cta h2 { font-size: clamp(36px, 4.2vw, 64px); max-width: 12em; margin: 0 auto; }
+/* largeur bornée par la hauteur d'écran (le mot ne dépasse pas ~42 % de la hauteur) ; hauteur posée en JS sous le bouton */
+#s-cta .cta__stage {
+  position: relative; margin: 0 auto;
+  width: min(100% - 2 * var(--gutter), 1080px, 42svh * var(--cta-ratio, 2.54));
+}
+#s-cta .cta__word { display: block; width: 100%; height: auto; overflow: visible; }
+#s-cta .cta__l { fill: var(--ink); }
+#s-cta .cta__i { fill: var(--red); transition: fill .35s var(--ease); }
+#s-cta .cta__stage:has(.cta__btn.is-on:hover) .cta__i,
+#s-cta .cta__word g.is-on:hover .cta__i { fill: var(--red-2); }
+#s-cta .cta__word g.is-on { cursor: pointer; }
+#s-cta .cta__lbl { fill: #fff; text-anchor: middle; font-family: var(--f-body); font-weight: 600; letter-spacing: .14em; pointer-events: none; }
+#s-cta .cta__btn { position: absolute; z-index: 5; left: 0; top: 0; width: 0; height: 0; padding: 0; border: 0; border-radius: 0; background: transparent; cursor: pointer; pointer-events: none; }
+#s-cta .cta__btn.is-on { pointer-events: auto; }
+#s-cta .cta__btn:focus-visible { outline: 2px solid var(--red-deep); outline-offset: 4px; }
+
+#s-cta .cta__end { display: flex; flex-direction: column; align-items: center; gap: 10px; padding-top: 18px; padding-bottom: clamp(64px, 7vw, 104px); text-align: center; }
+#s-cta .cta__end > p { font-family: var(--f-display); font-weight: 500; font-size: clamp(20px, 1.6vw, 26px); letter-spacing: .04em; text-transform: uppercase; color: var(--ink); }
+#s-cta .cta__alt { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0 22px; }
+#s-cta .cta__link {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--ink-soft); font-size: 15.5px; font-weight: 500; text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px;
+  transition: color .3s var(--ease);
+}
+#s-cta .cta__link:hover { color: var(--red-deep); }
+#s-cta .cta__tel { display: inline-block; line-height: 44px; }
+#s-cta .cta__tel span { white-space: nowrap; }
+
+@media (max-width: 768px) {
+  #s-cta .cta__alt { flex-direction: column; gap: 0; }
+}

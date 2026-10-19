@@ -1,0 +1,63 @@
+/* FAQ · Scroll Animation #70 : bulles de discussion, question à gauche, réponse couleur bois à droite */
+#s-faq {
+  background: var(--night);
+  color: var(--pearl);
+  padding: clamp(72px, 8vw, 112px) 0 clamp(64px, 7vw, 96px);
+  overflow-x: clip;
+}
+#s-faq .faq__head { text-align: center; margin-bottom: clamp(36px, 4.5vw, 60px); }
+#s-faq .faq__head .eyebrow { margin-bottom: 16px; }
+#s-faq h2 {
+  color: var(--pearl);
+  font-size: clamp(48px, 5.6vw, 88px);
+  line-height: .95;
+  max-width: 9ch;
+  margin: 0 auto;
+}
+
+#s-faq .faq__chat { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: clamp(20px, 2.6vw, 32px); }
+#s-faq .faq__row { display: flex; align-items: flex-start; }
+#s-faq .faq__row--q { justify-content: flex-start; list-style: none; cursor: pointer; }
+#s-faq .faq__row--q::-webkit-details-marker { display: none; }
+#s-faq .faq__row--q:focus-visible { outline: none; }
+#s-faq .faq__row--q:focus-visible .faq__msg { outline: 2px solid var(--cembro); outline-offset: 4px; }
+#s-faq .faq__row--a { justify-content: flex-end; margin-top: 10px; }
+
+#s-faq .faq__msg {
+  position: relative;
+  overflow: hidden;
+  max-width: 70%;
+  padding: 15px 24px;
+  border: 0;
+  border-radius: 26px;
+  font-family: var(--f-body);
+  font-size: clamp(16px, .55vw + 11px, 19px);
+  line-height: 1.4;
+}
+#s-faq .faq__msg--q { background: var(--pearl); color: var(--ink); font-weight: 650; }
+#s-faq .faq__msg--a { background: var(--cembro); color: var(--night); font-weight: 500; }
+#s-faq .faq__copy { display: block; width: max-content; max-width: 100%; }
+
+/* indicateur « … » de frappe : affiché seulement quand le script anime les bulles */
+#s-faq .faq__dots { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; gap: 5px; pointer-events: none; }
+#s-faq.is-anim .faq__dots { display: flex; }
+#s-faq .faq__item.is-done .faq__dots { display: none; }
+#s-faq .faq__dots i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: sfaq-typing 1s infinite ease-in-out; }
+#s-faq .faq__dots i:nth-child(2) { animation-delay: .2s; }
+#s-faq .faq__dots i:nth-child(3) { animation-delay: .4s; }
+@keyframes sfaq-typing { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+#s-faq .faq__cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 30px; margin-top: clamp(40px, 5vw, 64px); }
+#s-faq .faq__tel {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px;
+  color: var(--pearl); white-space: nowrap; text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px;
+  font-weight: 600; font-size: 17px; letter-spacing: .04em;
+}
+#s-faq .faq__tel svg { width: 17px; height: 17px; color: var(--cembro); }
+#s-faq .faq__tel:hover { color: var(--cembro); }
+
+@media (max-width: 768px) {
+  #s-faq .faq__msg { max-width: 85%; padding: 15px 20px; border-radius: 22px; }
+  /* la barre fixe du bas porte déjà l'appel : pas de doublon sur mobile */
+  #s-faq .faq__cta .btn { display: none; }
+}

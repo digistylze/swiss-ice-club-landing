@@ -1,0 +1,56 @@
+<!-- Sliders #2 (Atelier Nova) : l'étape suivante du chantier naît dans une petite fenêtre au centre de la photo, puis l'envahit
+     pendant que la précédente avance ; le grand mot change lettre à lettre (AVANT -> APRÈS). Lecture automatique, clic pour avancer. -->
+<section id="s-avantapres" class="on-dark" aria-labelledby="ap-title">
+  <span id="realisations" class="ap-anchor"></span>
+  <div class="wrap ap-grid">
+    <div class="ap-text">
+      <p class="eyebrow">Avant, après</p>
+      <h2 id="ap-title">La même pièce, une autre vie.</h2>
+      <p class="ap-lead">Deux rénovations de CREA Immobilier à Genève, photographiées sous le même angle, du début à la fin des travaux.</p>
+
+      <div class="ap-tabs" role="group" aria-label="Chantier">
+        <button type="button" aria-pressed="true">Salle de bains</button>
+        <button type="button" aria-pressed="false">Pièce au hublot</button>
+      </div>
+
+      <div class="ap-word" aria-hidden="true"><span class="ap-word__cur">Avant</span><span class="ap-word__nxt">Après</span></div>
+
+      <div class="ap-proj" aria-live="polite">
+        <p class="ap-proj__name">Salle de bains sous les combles</p>
+        <p class="ap-proj__detail">Baignoire et sanitaires d'origine, carrelage et lambris.</p>
+      </div>
+
+      <div class="ap-ctrl">
+        <button class="ap-step" type="button">Étape suivante</button>
+        <ol class="ap-dots" aria-label="Étapes">
+          <li><button type="button" aria-label="Salle de bains, avant" aria-current="step"></button></li>
+          <li><button type="button" aria-label="Salle de bains, après"></button></li>
+          <li><button type="button" aria-label="Pièce au hublot, avant"></button></li>
+          <li><button type="button" aria-label="Pièce au hublot, pendant"></button></li>
+          <li><button type="button" aria-label="Pièce au hublot, après"></button></li>
+        </ol>
+      </div>
+    </div>
+
+    <figure class="ap-stage">
+      <!-- les 5 étapes (sources des images ; le script ne garde à l'écran que l'étape courante et la suivante) -->
+      <div class="ap-src" hidden>
+        <img data-img="av-sdb-avant" alt="Salle de bains sous les combles avant les travaux : baignoire verte, carrelage, lambris au plafond" width="722" height="894" data-word="Avant" data-proj="Salle de bains sous les combles" data-detail="Baignoire et sanitaires d'origine, carrelage et lambris.">
+        <img data-img="av-sdb-apres" alt="La même salle de bains après : baignoire balnéo, murs en enduit, éclairage intégré sous la pente" width="718" height="894" data-word="Après" data-proj="Salle de bains sous les combles" data-detail="Baignoire balnéo, murs en enduit, éclairage intégré sous la pente.">
+        <img data-img="av-hublot-avant" alt="Pièce d'appartement au hublot rond, mise à nu, sol brut" width="1000" height="1250" data-word="Avant" data-proj="Pièce au hublot, appartement" data-detail="La pièce mise à nu, le hublot rond conservé.">
+        <img data-img="av-hublot-pendant" alt="La même pièce pendant les travaux : le parquet livré en piles" width="1000" height="1250" data-word="Pendant" data-proj="Pièce au hublot, appartement" data-detail="Le parquet livré, prêt à être posé.">
+        <img data-img="av-hublot-apres" alt="La même pièce après : parquet posé, chaise longue noire devant le hublot, tableaux" width="1000" height="1250" data-word="Après" data-proj="Pièce au hublot, appartement" data-detail="Parquet posé, murs refaits, la pièce meublée.">
+      </div>
+      <!-- mobile : comparateur, la photo « avant » posée sur la photo « après », curseur à faire glisser -->
+      <div class="ap-cmp">
+        <img class="ap-cmp__b" alt="">
+        <div class="ap-cmp__a"><img alt=""></div>
+        <span class="ap-cmp__tag ap-cmp__tag--a" aria-hidden="true">Avant</span><span class="ap-cmp__tag ap-cmp__tag--b" aria-hidden="true">Après</span>
+        <span class="ap-cmp__bar" aria-hidden="true"><span class="ap-cmp__knob"><svg viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1 1 7l6 6M19 1l6 6-6 6"/></svg></span></span>
+        <input class="ap-cmp__range" type="range" min="0" max="100" value="50" aria-label="Comparer la photo avant et la photo après">
+      </div>
+      <div class="ap-slider" role="img" aria-label="Salle de bains sous les combles avant les travaux"></div>
+      <figcaption class="ap-count"><span class="ap-count__cur">01</span> / 05</figcaption>
+    </figure>
+  </div>
+</section>

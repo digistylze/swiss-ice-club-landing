@@ -1,0 +1,44 @@
+<!-- Navigation Menus #3 « Curved Menu » : barre fixe, puis panneau sombre qui glisse depuis la droite, bord gauche courbé pendant le trajet.
+     Le bouton « Étude » de la barre ouvre le formulaire rapide (Navigation Menus #2, section devis). -->
+<header id="s-nav">
+  <div class="nav__bar">
+    <a class="nav__logo" href="#top"><img data-img="logo-blanc" alt="Carmelo Crea, retour en haut de page" width="160" height="41"></a>
+    <div class="nav__right">
+      <a class="nav__tel" href="tel:+41227383736"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>022 738 37 36</a>
+      <button class="btn nav__devis" type="button" data-devis>Demander une étude</button>
+      <button class="nav__burger" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav__burger-bg" aria-hidden="true"></span>
+        <span class="nav__burger-label"><span>Menu</span><span>Fermer</span></span>
+        <span class="nav__burger-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav__veil" aria-hidden="true"></div>
+
+  <div class="nav__menu" id="nav-menu" data-lenis-prevent>
+    <!-- bord gauche du panneau : le tracé se bombe pendant le trajet puis redevient droit -->
+    <svg class="nav__curve" aria-hidden="true"><path/></svg>
+    <div class="nav__body">
+      <nav aria-label="Menu principal">
+        <p class="nav__head">Sur cette page</p>
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#concept"><span class="nav__dot" aria-hidden="true"></span>Le concept</a></li>
+          <li><a class="nav__link" href="#canaux"><span class="nav__dot" aria-hidden="true"></span>Les quatre canaux</a></li>
+          <li><a class="nav__link" href="#formules"><span class="nav__dot" aria-hidden="true"></span>Formules</a></li>
+          <li><a class="nav__link" href="#realisations"><span class="nav__dot" aria-hidden="true"></span>Avant, après</a></li>
+          <li><a class="nav__link" href="#avis"><span class="nav__dot" aria-hidden="true"></span>Avis</a></li>
+          <li><a class="nav__link" href="#questions"><span class="nav__dot" aria-hidden="true"></span>Questions</a></li>
+          <li><a class="nav__link" href="#contact"><span class="nav__dot" aria-hidden="true"></span>Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__info">
+        <a href="tel:+41227383736">022 738 37 36</a>
+        <a href="mailto:carmelo@crea-immobilier.ch">carmelo@crea-immobilier.ch</a>
+        <p>Rue Voltaire 8, 1201 Genève</p>
+        <a href="https://api.whatsapp.com/send?phone=41793870506" target="_blank" rel="noopener">WhatsApp<span class="sr-only"> (nouvel onglet)</span></a>
+        <button class="btn nav__cta" type="button" data-devis>Demander une étude</button>
+      </div>
+    </div>
+  </div>
+</header>

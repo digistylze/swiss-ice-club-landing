@@ -1,0 +1,82 @@
+/* Déroulé : Scroll Animation #29. Les quatre temps à gauche le long d'un fil qui se remplit ; à droite la pile de photos
+   épinglée (le bloc interne .dr-pin est épinglé, pas la colonne flex) */
+#s-deroule { position: relative; background: var(--night); padding: clamp(80px, 11svh, 128px) 0 clamp(64px, 9svh, 104px); overflow-x: clip; }
+#s-deroule .dr-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+#s-deroule .dr-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 72px; align-items: end; margin-bottom: clamp(8px, 3svh, 32px); }
+#s-deroule .dr-head h2 { margin-top: 14px; font-size: clamp(36px, 4.4vw, 68px); max-width: 13em; }
+#s-deroule .dr-lede { max-width: 30em; font-size: clamp(16px, 1.1vw, 18.5px); line-height: 1.6; padding-bottom: .3em; }
+
+#s-deroule .dr-arch { display: flex; justify-content: space-between; gap: clamp(40px, 6vw, 96px); }
+/* le fil de la séance : une ligne inox fine, remplie de rouge au fil du défilement (script.js) */
+#s-deroule .dr-left { position: relative; flex: 1 1 0; min-width: 0; max-width: 500px; list-style: none; margin: 0; padding: 0 0 0 44px; }
+#s-deroule .dr-left::before,
+#s-deroule .dr-left::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--line-light); }
+#s-deroule .dr-left::after { width: 2px; left: -.5px; background: var(--red); transform-origin: 50% 0; transform: scaleY(var(--rail, 0)); }
+#s-deroule .dr-step { position: relative; min-height: 54svh; display: flex; flex-direction: column; justify-content: center; padding: 5svh 0; transition: opacity .5s var(--ease); }
+#s-deroule .dr-step__n {
+  font-family: var(--f-display); font-weight: 600; font-size: 15px; letter-spacing: .12em; color: var(--inox);
+  font-variant-numeric: lining-nums tabular-nums; transition: color .5s var(--ease);
+}
+/* repère sur le fil, à hauteur du numéro */
+#s-deroule .dr-step__n::before {
+  content: ""; position: absolute; left: -48.5px; width: 9px; height: 9px; margin-top: .45em;
+  background: var(--night); box-shadow: inset 0 0 0 1px var(--inox); transition: background .5s var(--ease), box-shadow .5s var(--ease);
+}
+#s-deroule .dr-step h3 { margin-top: 12px; font-size: clamp(30px, 2.8vw, 46px); line-height: 1.02; }
+#s-deroule .dr-step p { margin-top: 16px; max-width: 30em; font-size: clamp(16px, .4vw + 12px, 18px); line-height: 1.65; color: var(--mist); }
+#s-deroule .dr-step__img { display: none; }
+
+#s-deroule .dr-right { flex: 0 0 auto; width: min(46vw, 600px); }
+#s-deroule .dr-pin { position: relative; height: calc(100svh - 76px - 64px); }
+#s-deroule .dr-img { position: absolute; inset: 0; overflow: hidden; background: var(--night-2); }
+#s-deroule .dr-img img { width: 100%; height: 100%; object-fit: cover; }
+#s-deroule .dr-img:nth-child(1) { z-index: 4; }
+#s-deroule .dr-img:nth-child(2) { z-index: 3; }
+#s-deroule .dr-img:nth-child(3) { z-index: 2; }
+#s-deroule .dr-img:nth-child(4) { z-index: 1; }
+#s-deroule .dr-count {
+  position: absolute; left: 0; bottom: 0; z-index: 5; display: flex; align-items: baseline; gap: 8px;
+  padding: 12px 16px 10px; background: var(--night); font-family: var(--f-display); font-weight: 500; letter-spacing: .1em; color: var(--inox);
+}
+#s-deroule .dr-count__n { font-size: 22px; font-weight: 600; color: var(--pearl); font-variant-numeric: lining-nums tabular-nums; }
+#s-deroule .dr-count__t { font-size: 13px; }
+
+/* sous la scène : la réservation et ce qu'il faut apporter */
+#s-deroule .dr-foot {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 20px 36px;
+  margin-top: clamp(40px, 6svh, 72px); padding-top: clamp(28px, 4svh, 40px); border-top: 1px solid var(--line-light);
+}
+#s-deroule .dr-bring { font-size: 15.5px; line-height: 1.5; color: var(--mist); }
+
+/* desktop animé : l'étape lue est pleine, les autres s'effacent (classes posées par script.js) */
+#s-deroule.dr-live .dr-step { opacity: .34; }
+#s-deroule.dr-live .dr-step.is-on { opacity: 1; }
+#s-deroule .dr-step.is-on .dr-step__n { color: var(--red-2); }
+#s-deroule .dr-step.is-on .dr-step__n::before { background: var(--red); box-shadow: none; }
+
+/* mobile, ou mouvement réduit : pas d'épinglage, chaque étape porte sa photo */
+#s-deroule.dr-static .dr-right { display: none; }
+#s-deroule.dr-static .dr-left { max-width: none; }
+#s-deroule.dr-static .dr-step { min-height: 0; padding: 32px 0 20px; }
+#s-deroule.dr-static .dr-step__img { display: block; margin: 22px 0 0; aspect-ratio: 4 / 3; overflow: hidden; max-width: 640px; }
+#s-deroule.dr-static .dr-step__img img { width: 100%; height: 100%; object-fit: cover; }
+#s-deroule.dr-static .dr-step:nth-child(3) .dr-step__img img { object-position: 50% 14%; }
+#s-deroule.dr-static .dr-step:nth-child(4) .dr-step__img img { object-position: 50% 45%; }
+
+@media (max-width: 768px) {
+  #s-deroule .dr-arch { display: block; }
+  #s-deroule .dr-right { display: none; }
+  #s-deroule .dr-head { grid-template-columns: minmax(0, 1fr); text-align: center; justify-items: center; gap: 16px; margin-bottom: 12px; }
+  #s-deroule .dr-head h2 { margin-left: auto; margin-right: auto; }
+  #s-deroule .dr-lede { max-width: 34em; }
+  #s-deroule .dr-left { max-width: none; padding-left: 30px; }
+  #s-deroule .dr-step { min-height: 0; padding: 32px 0 20px; }
+  #s-deroule .dr-step__n::before { left: -34.5px; }
+  #s-deroule .dr-step__img { display: block; margin: 22px 0 0; aspect-ratio: 4 / 3; overflow: hidden; }
+  #s-deroule .dr-step__img img { width: 100%; height: 100%; object-fit: cover; }
+  #s-deroule .dr-step:nth-child(3) .dr-step__img img { object-position: 50% 14%; }
+  #s-deroule .dr-step:nth-child(4) .dr-step__img img { object-position: 50% 45%; }
+  /* la barre mobile porte déjà la réservation : ici, seulement ce qu'il faut apporter */
+  #s-deroule .dr-cta { display: none; }
+  #s-deroule .dr-foot { justify-content: center; text-align: center; margin-top: 28px; }
+}

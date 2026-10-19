@@ -1,0 +1,119 @@
+/* Socle commun : jetons de la DA, reset, typo, boutons, barre mobile. Chaque section a son CSS scopé (#s-<nom>). */
+:root {
+  /* DA Swiss Ice Club : les bains noirs mat à cuve inox, le logo (goutte blanche, disque rouge, croix suisse),
+     le titrage Antonio du site. Noir profond pour les fonds sombres, blanc glacé pour les clairs, inox pour les filets,
+     un seul accent : le rouge suisse du logo. */
+  --night: #0C0D0F;        /* fond sombre principal : le noir mat des bains (jamais de noir pur) */
+  --night-2: #141518;
+  --night-3: #1D1F23;
+  --ice: #EEF1F2;          /* fond clair : blanc froid */
+  --ice-2: #DFE5E8;        /* lavis glacé */
+  --ink: #0E1013;          /* titres sur clair */
+  --ink-soft: #4A5058;     /* texte courant sur clair (AA sur --ice) */
+  --pearl: #F3F6F7;        /* titres et boutons sur sombre */
+  --mist: #A7AEB5;         /* texte courant sur sombre (AA sur --night) */
+  --inox: #B8C0C6;         /* la cuve inox : filets, détails, chiffres */
+  --frost: #A9D6E5;        /* l'eau glacée : rares touches froides */
+  --red: #E30613;          /* le rouge du logo, un ton plus profond pour les aplats d'interface */
+  --red-2: #FF2B36;        /* survol */
+  --red-deep: #B8000B;     /* le même pour du texte sur clair (AA sur --ice) */
+  --line: rgba(14, 16, 19, .14);
+  --line-light: rgba(243, 246, 247, .14);
+  --f-display: "Antonio", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter: clamp(20px, 5vw, 72px);
+  --maxw: 1320px;
+  --bar-h: 0px;            /* hauteur de la barre mobile (posée par core.js) */
+  --nav-h: 76px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-soft: cubic-bezier(.65, 0, .35, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--night); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+/* pas d'overflow: hidden quand Lenis est arrêté : la page se décalerait (Windows). core.js bloque les touches. */
+body {
+  margin: 0;
+  width: 100%;
+  overflow-x: clip;
+  background: var(--night);
+  color: var(--mist);
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: clamp(16px, .45vw + 12.5px, 18px);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding-bottom: var(--bar-h);
+}
+img, svg, canvas, video { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+/* titres : Antonio, le condensé du site, en capitales serrées comme le lettrage des bains */
+h1, h2, h3, h4 {
+  margin: 0; font-family: var(--f-display); font-weight: 600;
+  line-height: .98; letter-spacing: -.005em; color: var(--pearl); text-wrap: balance; text-transform: uppercase;
+}
+p { margin: 0; }
+::selection { background: var(--red); color: #fff; }
+
+.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+/* sur-titre : petites capitales espacées, précédées d'une petite croix suisse */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: .75em;
+  font-family: var(--f-body); font-weight: 600; font-size: 12.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--inox);
+}
+.eyebrow::before {
+  content: ""; width: 12px; height: 12px; flex: none;
+  background: linear-gradient(#fff, #fff) center / 2.4px 7.2px no-repeat, linear-gradient(#fff, #fff) center / 7.2px 2.4px no-repeat, var(--red);
+}
+.on-light { color: var(--ink-soft); }
+.on-light h1, .on-light h2, .on-light h3, .on-light h4 { color: var(--ink); }
+.on-light .eyebrow { color: var(--ink-soft); }
+
+/* un seul appel à l'action : le bouton rouge plein, coins vifs ; encre sur clair pour le secondaire */
+.btn {
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: .75em;
+  min-height: 54px; padding: .9em 1.9em;
+  border: 0; border-radius: 0; cursor: pointer; text-decoration: none;
+  background: var(--red); color: #fff;
+  font-family: var(--f-body); font-weight: 600; font-size: 13.5px; letter-spacing: .14em; text-transform: uppercase; line-height: 1;
+  transition: background .4s var(--ease), color .4s var(--ease);
+}
+.btn:hover { background: var(--red-2); }
+.btn--ink { background: var(--ink); color: var(--pearl); }
+.btn--ink:hover { background: var(--red); color: #fff; }
+/* bouton secondaire : contour fin */
+.btn--ghost { background: transparent; color: var(--pearl); box-shadow: inset 0 0 0 1px rgba(243, 246, 247, .38); }
+.btn--ghost:hover { background: var(--pearl); color: var(--night); box-shadow: none; }
+.on-light .btn--ghost { color: var(--ink); box-shadow: inset 0 0 0 1px rgba(14, 16, 19, .3); }
+.on-light .btn--ghost:hover { background: var(--ink); color: var(--pearl); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, .btn:focus-visible { outline: 2px solid var(--frost); outline-offset: 3px; }
+.on-light a:focus-visible, .on-light button:focus-visible, .on-light .btn:focus-visible { outline-color: var(--red-deep); }
+.btn svg { width: 16px; height: 16px; flex: none; }
+.link { color: inherit; text-decoration: underline; text-underline-offset: .22em; text-decoration-thickness: 1px; }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.sr-only:focus { position: fixed !important; top: 8px; left: 8px; width: auto; height: auto; clip: auto; z-index: 999; background: var(--pearl); color: var(--night); padding: 8px 14px; }
+
+/* barre mobile : réservation + appel, visible quand le bouton du hero est sorti de l'écran */
+.mbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  display: none; align-items: center; gap: 10px;
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(12, 13, 15, .94); backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line-light);
+  transform: translateY(110%); transition: transform .45s var(--ease);
+}
+.mbar.is-on { transform: none; }
+.mbar .btn { flex: 1; min-height: 48px; }
+.mbar__call { flex: none; width: 48px; height: 48px; display: grid; place-items: center; color: var(--pearl); border: 1px solid rgba(243, 246, 247, .35); border-radius: 50%; }
+.mbar__call svg { width: 19px; height: 19px; }
+@media (max-width: 768px) { .mbar { display: flex; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

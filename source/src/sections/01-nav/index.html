@@ -1,0 +1,57 @@
+<!-- 01-nav · Navigation Menus #3 « Curved Menu » : barre fixe (transparente sur le hero, noire floutée dès 48 px),
+     puis tiroir sombre qui glisse depuis la droite, bord gauche courbé pendant le trajet. -->
+<header id="s-nav">
+  <div class="nav__bar">
+    <a class="nav__brand" href="#top" aria-label="Swiss Ice Club, retour en haut de page">
+      <img class="nav__logo" data-img="logo" alt="" width="33" height="40">
+      <span class="nav__name" aria-hidden="true">Swiss Ice Club</span>
+    </a>
+    <div class="nav__right">
+      <a class="nav__free" href="https://calendar.app.google/S53BFsSnwfsiBusT8" target="_blank" rel="noopener" data-book="entretien">Entretien gratuit</a>
+      <button class="btn nav__book" type="button" data-book="decouverte">Réserver</button>
+      <button class="nav__burger" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav__burger-bg" aria-hidden="true"></span>
+        <span class="nav__burger-label"><span>Menu</span><span>Fermer</span></span>
+        <span class="nav__burger-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav__veil" aria-hidden="true"></div>
+
+  <div class="nav__menu" id="nav-menu" data-lenis-prevent>
+    <!-- bord gauche du tiroir : le tracé se bombe pendant le trajet puis redevient droit -->
+    <svg class="nav__curve" aria-hidden="true"><path/></svg>
+    <div class="nav__body">
+      <nav aria-label="Menu principal">
+        <p class="nav__head">Sur cette page</p>
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#offres"><span class="nav__dot" aria-hidden="true"></span>Expériences</a></li>
+          <li><a class="nav__link" href="#seance"><span class="nav__dot" aria-hidden="true"></span>La séance</a></li>
+          <li><a class="nav__link" href="#bienfaits"><span class="nav__dot" aria-hidden="true"></span>Bienfaits</a></li>
+          <li><a class="nav__link" href="#fondateur"><span class="nav__dot" aria-hidden="true"></span>Le fondateur</a></li>
+          <li><a class="nav__link" href="#cercle"><span class="nav__dot" aria-hidden="true"></span>Le 30</a></li>
+          <li><a class="nav__link" href="#questions"><span class="nav__dot" aria-hidden="true"></span>Questions</a></li>
+          <li><a class="nav__link" href="#contact"><span class="nav__dot" aria-hidden="true"></span>Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav__info">
+        <div class="nav__col">
+          <p class="nav__label">Carouge</p>
+          <p>Chemin du Faubourg-de-Cruseilles 15-17<br>1227 Carouge, Genève</p>
+          <a href="tel:+41782477525">+41 78 247 75 25</a>
+          <a href="https://wa.me/41782487529" target="_blank" rel="noopener">WhatsApp<span class="sr-only"> (nouvel onglet)</span></a>
+          <a href="mailto:info@swissiceclub.ch">info@swissiceclub.ch</a>
+        </div>
+        <div class="nav__col nav__col--social">
+          <p class="nav__label">Suivre</p>
+          <a href="https://www.instagram.com/swissiceclub.ch/" target="_blank" rel="noopener">Instagram<span class="sr-only"> (nouvel onglet)</span></a>
+          <a href="https://www.tiktok.com/@swiss.ice.club" target="_blank" rel="noopener">TikTok<span class="sr-only"> (nouvel onglet)</span></a>
+          <a href="https://www.facebook.com/profile.php?id=61583440150221" target="_blank" rel="noopener">Facebook<span class="sr-only"> (nouvel onglet)</span></a>
+          <a href="https://www.linkedin.com/in/swiss-ice-club-5a6731398/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> (nouvel onglet)</span></a>
+        </div>
+        <button class="btn nav__cta" type="button" data-book="decouverte">Réserver ma séance découverte</button>
+      </div>
+    </div>
+  </div>
+</header>

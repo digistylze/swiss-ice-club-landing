@@ -1,0 +1,113 @@
+/* Manifeste : grandes lignes en Gilda Display, pastilles d'images dans le texte qui s'élargissent au défilement,
+   la dernière s'ouvre en grand cadre (Scroll Animation #17, Image Expansion Typography). État final par défaut :
+   le JS ne pose l'état fermé que si le mouvement est permis. */
+#s-manifeste {
+  --r: 28px;                 /* rayon du grand cadre ouvert */
+  --pos55: 58% 50%;          /* cadrage du lit : identique dans la pastille et le grand cadre (passage sans saut) */
+  position: relative;
+  background: var(--stone);
+  padding: clamp(80px, 8vw, 120px) 0 clamp(64px, 7vw, 104px);
+  overflow-x: clip;
+}
+#s-manifeste .mf__anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+#s-manifeste .mf__eyebrow { margin-bottom: clamp(22px, 2.4vw, 36px); }
+
+#s-manifeste .mf__title {
+  position: relative;
+  z-index: 3;               /* au-dessus du cadre qui part de la dernière pastille */
+  font-size: clamp(40px, 7vw, 108px);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+#s-manifeste .mf__line { display: block; white-space: nowrap; }
+#s-manifeste .mf__line:nth-child(2) { padding-left: 1.5em; }
+#s-manifeste .mf__line:nth-child(3) { padding-left: 3em; }
+
+/* pastille : un galet arrondi posé entre ligne de base et hauteur des capitales ; l'image dedans garde sa taille
+   d'ouverture et se révèle depuis le centre (comme .type__expand--reveal du catalogue) */
+#s-manifeste .mf__pill {
+  --h: .78;                  /* hauteur en em ; fermée = un disque de cette taille */
+  --k: 1;                    /* échelle des largeurs d'ouverture (plus petite sur mobile) */
+  position: relative;
+  display: inline-block;
+  width: calc(var(--w) * var(--k) * 1em);
+  height: calc(var(--h) * 1em);
+  vertical-align: -.03em;
+  margin-right: .03em;
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--stone-2);
+}
+#s-manifeste .mf__pill img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(var(--w) * var(--k) * 1em);
+  max-width: none;
+  height: 100%;
+  transform: translateX(-50%);
+  object-fit: cover;
+  object-position: var(--pos, 50% 50%);
+}
+#s-manifeste .mf__pill--last img { object-position: var(--pos55); }
+
+/* grand cadre : réserve la place de l'image ouverte ; .mf__open part de la pastille de « Être heureux » */
+#s-manifeste .mf__frame {
+  position: relative;
+  margin: clamp(40px, 4.5vw, 68px) 0 0;
+  aspect-ratio: 16 / 9;
+  max-height: 58vh;
+  aspect-ratio: 2.4 / 1;
+}
+#s-manifeste .mf__open {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--r);
+  background: var(--stone-2);
+}
+#s-manifeste .mf__open img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos55); }
+
+#s-manifeste .mf__text {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 1.1em clamp(40px, 6vw, 96px);
+  align-items: start;
+  margin: clamp(36px, 4vw, 56px) 0 0;
+  color: var(--ink-soft);
+}
+#s-manifeste .mf__lead { font-size: clamp(18px, .7vw + 12px, 22px); line-height: 1.55; color: var(--ink); }
+#s-manifeste .mf__quote { margin: 0; padding-left: clamp(18px, 2vw, 28px); border-left: 1px solid var(--cembro-deep); }
+#s-manifeste .mf__quote p { font-family: var(--f-display); font-weight: 500; font-size: clamp(22px, 1vw + 14px, 28px); line-height: 1.32; color: var(--ink); }
+#s-manifeste .mf__quote footer { margin-top: 14px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cembro-deep); }
+#s-manifeste .mf__text sup { font-size: .62em; line-height: 0; }
+#s-manifeste .mf__link {
+  grid-column: 1;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: .2em;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  #s-manifeste { --r: 18px; --pos55: 58% 50%; padding: 76px 0 80px; }
+  #s-manifeste .mf__title {
+  font-size: clamp(34px, 9.4vw, 40px); line-height: 1.16; }
+  #s-manifeste .mf__eyebrow, #s-manifeste .mf__title { text-align: center; }
+  #s-manifeste .mf__line:nth-child(n) { padding-left: 0; }
+  #s-manifeste .mf__pill { --h: .74; --k: .74; }
+  #s-manifeste .mf__frame { margin-top: 30px; aspect-ratio: 5 / 4; max-height: none; }
+  #s-manifeste .mf__text { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 26px; margin: 30px 0 0; text-align: center; }
+  #s-manifeste .mf__quote { padding: 0; border: 0; }
+  #s-manifeste .mf__quote::before { content: ""; display: block; width: 48px; height: 1px; margin: 0 auto 22px; background: var(--cembro-deep); }
+  #s-manifeste .mf__link { justify-self: center; }
+}

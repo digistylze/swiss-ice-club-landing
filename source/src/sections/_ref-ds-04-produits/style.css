@@ -1,0 +1,167 @@
+/* Produits : Grid Animations #4 (liste / grande vue) + Scroll Animation #9 (la photo change en lames horizontales) */
+#s-produits { position: relative; background: var(--night); color: var(--mist); overflow-x: clip; padding: 56px 0 64px; }
+#s-produits .pr-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+
+/* desktop : à gauche le titre et la liste numérotée, à droite la grande photo et la fiche de la famille */
+#s-produits .pr-grid { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 48px; }
+#s-produits .pr-side { min-width: 0; display: flex; flex-direction: column; }
+#s-produits .pr-head .eyebrow { margin-bottom: 16px; }
+#s-produits .pr-title { font-size: clamp(30px, 2.25vw, 34px); line-height: 1.04; }
+#s-produits .pr-lead { margin-top: 16px; font-size: 14.5px; line-height: 1.55; color: var(--mist); }
+
+/* liste : un onglet par famille, un filet entre chaque */
+#s-produits .pr-list { position: relative; margin-top: 26px; border-top: 1px solid var(--line-light); }
+#s-produits .pr-tab {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-items: baseline;
+  width: 100%; padding: 9px 14px 10px 0; margin: 0;
+  border: 0; border-bottom: 1px solid var(--line-light); background: transparent; color: inherit;
+  text-align: left; cursor: pointer; transition: background .4s var(--ease);
+}
+#s-produits .pr-tab::before {
+  content: ""; position: absolute; left: -14px; top: 11px; bottom: 12px; width: 4px; background: var(--or);
+  clip-path: polygon(0 3px, 100% 0, 100% calc(100% - 3px), 0 100%);
+  transform: scaleY(0); transition: transform .45s var(--ease);
+}
+#s-produits .pr-tab__t { display: grid; gap: 1px; transition: transform .45s var(--ease); }
+#s-produits .pr-tab__name {
+  font-family: var(--f-display); font-weight: 600; font-stretch: 108%; font-size: 16.5px; line-height: 1.2; letter-spacing: -.01em;
+  color: rgba(244, 241, 234, .62); transition: color .4s var(--ease);
+}
+#s-produits .pr-tab__line { font-size: 12.5px; line-height: 1.3; color: rgba(169, 174, 181, .78); }
+#s-produits .pr-tab:hover .pr-tab__name { color: var(--pearl); }
+#s-produits .pr-tab.is-active { background: linear-gradient(90deg, rgba(201, 163, 83, .1), rgba(201, 163, 83, 0) 80%); }
+#s-produits .pr-tab.is-active::before { transform: scaleY(1); }
+#s-produits .pr-tab.is-active .pr-tab__name { color: var(--pearl); }
+#s-produits .pr-tab.is-active .pr-tab__t { transform: translateX(6px); }
+/* barre de progression du défilement automatique, sous l'onglet actif */
+#s-produits .pr-tab__bar { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; overflow: hidden; opacity: 0; transition: opacity .3s; }
+#s-produits .pr-tab__bar i { display: block; height: 100%; background: var(--or); transform: scaleX(0); transform-origin: 0 50%; }
+#s-produits.is-auto .pr-tab.is-active .pr-tab__bar { opacity: 1; }
+
+/* grande vue */
+#s-produits .pr-view { min-width: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 26px; }
+#s-produits .pr-stage { position: relative; min-height: 0; overflow: hidden; background: var(--night-2); }
+#s-produits .pr-stage img { position: absolute; left: 0; width: 100%; max-width: none; object-fit: cover; transform: scale(1.06); }
+#s-produits .pr-base { top: 0; height: 100%; }
+#s-produits .pr-dim { position: absolute; inset: 0; background: #0b0c0e; opacity: 0; pointer-events: none; }
+/* lames : chacune porte la photo entière, décalée de sa propre hauteur (posé par script.js) */
+#s-produits .pr-slats { position: absolute; inset: 0; perspective: 1600px; visibility: hidden; pointer-events: none; }
+#s-produits .pr-slat { position: absolute; left: 0; width: 100%; overflow: hidden; backface-visibility: hidden; transform-origin: 50% 50%; }
+#s-produits .pr-slat i { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(9, 10, 12, .92), rgba(9, 10, 12, .45)); }
+/* #4 : la vue s'ouvre en quatre carreaux, une croix couleur de fond qui s'amincit jusqu'à disparaître */
+#s-produits .pr-cross {
+  position: absolute; inset: -1px; background: var(--night); pointer-events: none;
+  clip-path: polygon(50% 0%, 50% 0%, 50% 50%, 100% 50%, 100% 50%, 50% 50%, 50% 100%, 50% 100%, 50% 50%, 0% 50%, 0% 50%, 50% 50%);
+}
+/* vignette Velux, seulement pour les stores intérieurs */
+#s-produits .pr-velux {
+  position: absolute; right: 16px; bottom: 16px; width: 150px; margin: 0; padding: 10px 10px 8px;
+  background: var(--pearl); opacity: 0; transform: translateY(12px); transition: opacity .45s var(--ease), transform .45s var(--ease);
+}
+#s-produits .pr-velux img { position: static; height: 92px; object-fit: contain; transform: none; }
+#s-produits .pr-velux figcaption { margin-top: 4px; font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+#s-produits .pr-stage.is-velux .pr-velux { opacity: 1; transform: none; transition-delay: .9s; }
+
+/* fiche de la famille active */
+#s-produits .pr-detail {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "head cta" "panels panels";
+  align-items: end; gap: 18px 32px;
+}
+#s-produits .pr-dhead { grid-area: head; min-width: 0; }
+#s-produits .pr-kicker { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 4px; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--steel); }
+#s-produits .pr-line { letter-spacing: .12em; color: var(--mist); }
+#s-produits .pr-name { margin-top: 8px; font-size: clamp(26px, 2vw, 30px); }
+#s-produits .pr-cta { grid-area: cta; }
+#s-produits .pr-panels { grid-area: panels; display: grid; padding-top: 18px; border-top: 1px solid var(--line-light); }
+/* les neuf fiches occupent la même case : la plus haute fixe la hauteur, la photo ne saute pas d'une famille à l'autre */
+#s-produits .pr-panel { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1.15fr); align-content: start; gap: 28px; }
+#s-produits .pr-panel[hidden] { display: grid; visibility: hidden; }
+#s-produits .pr-panel:focus-visible { outline: 2px solid var(--or); outline-offset: 6px; }
+#s-produits .pr-desc { font-size: 15px; line-height: 1.55; color: var(--mist); }
+#s-produits .pr-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; align-content: start; }
+#s-produits .pr-points li { position: relative; padding-left: 20px; font-size: 14.5px; line-height: 1.42; color: rgba(244, 241, 234, .88); }
+#s-produits .pr-points li::before {
+  content: ""; position: absolute; left: 0; top: .58em; width: 11px; height: 3px; background: var(--or);
+  clip-path: polygon(2px 0, 100% 0, calc(100% - 2px) 100%, 0 100%);
+}
+#s-produits .pr-models__t { margin-bottom: 9px; font-size: 11.5px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--steel); }
+#s-produits .pr-models ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+#s-produits .pr-models li {
+  padding: 5px 12px; font-size: 12.5px; line-height: 1.3; color: var(--pearl); background: rgba(244, 241, 234, .075);
+  clip-path: polygon(5px 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+}
+
+/* tablette et mobile : rangée de pastilles défilable, photo, puis la fiche ; aucun épinglage */
+@media (max-width: 1079px) {
+  #s-produits { padding: clamp(64px, 12vw, 96px) 0 clamp(56px, 10vw, 88px); }
+  #s-produits .pr-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  #s-produits .pr-title { font-size: clamp(30px, 6.4vw, 44px); }
+  #s-produits .pr-lead { font-size: 15.5px; max-width: 40em; }
+  #s-produits .pr-list {
+    display: flex; gap: 8px; margin: 28px calc(-1 * var(--gutter)) 18px; padding: 2px var(--gutter) 4px;
+    border-top: 0; overflow-x: auto; overscroll-behavior-x: contain; scroll-padding-inline: var(--gutter);
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  #s-produits .pr-list::-webkit-scrollbar { display: none; }
+  #s-produits .pr-tab {
+    flex: none; width: auto; display: flex; align-items: center; gap: 8px; padding: 11px 18px;
+    border: 0; background: rgba(244, 241, 234, .07); white-space: nowrap;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+  #s-produits .pr-tab::before, #s-produits .pr-tab__line { display: none; }
+  #s-produits .pr-tab__name { font-size: 15px; }
+  #s-produits .pr-tab.is-active { background: var(--or); }
+  #s-produits .pr-tab.is-active .pr-tab__name { color: var(--night); }
+  #s-produits .pr-tab.is-active .pr-tab__t { transform: none; }
+  #s-produits .pr-tab__bar { left: 10px; right: 10px; bottom: 0; }
+  #s-produits .pr-tab__bar i { background: rgba(19, 21, 23, .6); }
+  #s-produits .pr-tab:focus-visible { clip-path: none; outline-offset: -2px; }
+  #s-produits .pr-view { gap: 24px; grid-template-rows: auto auto; }
+  #s-produits .pr-stage { aspect-ratio: 16 / 9; }
+  #s-produits .pr-detail { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "panels" "cta"; gap: 18px; }
+  #s-produits .pr-cta { justify-self: start; margin-top: 6px; }
+  #s-produits .pr-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px 28px; }
+  /* la photo est au-dessus : ici chaque fiche garde sa propre hauteur, sans vide sous les plus courtes */
+  #s-produits .pr-panel[hidden] { display: none; }
+  #s-produits .pr-desc { grid-column: 1 / -1; font-size: 16px; }
+}
+@media (max-width: 768px) {
+  #s-produits .pr-stage { aspect-ratio: 4 / 3; }
+  #s-produits .pr-panel { grid-template-columns: minmax(0, 1fr); }
+  #s-produits .pr-velux { width: 112px; right: 10px; bottom: 10px; padding: 7px 7px 5px; }
+  #s-produits .pr-velux img { height: 66px; }
+}
+
+/* desktop : la section tient entière dans l'écran, sous la barre de navigation (retour de Damian).
+   Tout se règle sur la hauteur disponible : la photo prend la place qui reste, textes et marges suivent la hauteur. */
+@media (min-width: 1080px) {
+  #s-produits { --h: calc(100svh - var(--nav-h)); height: var(--h); min-height: 560px; padding: clamp(18px, 3.6vh, 44px) 0; }
+  #s-produits .pr-grid { height: 100%; gap: clamp(32px, 3.2vw, 56px); grid-template-columns: minmax(0, clamp(330px, 27vw, 420px)) minmax(0, 1fr); }
+  #s-produits .pr-side { min-height: 0; }
+  #s-produits .pr-head .eyebrow { margin-bottom: clamp(8px, 1.4vh, 16px); }
+  #s-produits .pr-title { font-size: clamp(24px, 3.5vh, 34px); }
+  #s-produits .pr-lead { margin-top: clamp(8px, 1.4vh, 16px); font-size: clamp(13px, 1.6vh, 14.5px); }
+  #s-produits .pr-list { margin-top: clamp(12px, 2.4vh, 26px); flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  #s-produits .pr-tab { flex: 1 1 0; max-height: 64px; min-height: 0; align-content: center; padding: 0 14px 0 0; }
+  #s-produits .pr-tab::before { top: 22%; bottom: 22%; }
+  #s-produits .pr-tab__name { font-size: clamp(14px, 1.85vh, 16.5px); }
+  #s-produits .pr-tab__line { font-size: clamp(11.5px, 1.45vh, 12.5px); }
+  #s-produits .pr-view { height: 100%; gap: clamp(14px, 2.4vh, 26px); }
+  #s-produits .pr-detail { gap: clamp(10px, 1.6vh, 18px) 32px; }
+  #s-produits .pr-name { margin-top: clamp(4px, .8vh, 8px); font-size: clamp(22px, 3vh, 30px); }
+  #s-produits .pr-cta { min-height: clamp(44px, 5.6vh, 54px); }
+  #s-produits .pr-panels { padding-top: clamp(10px, 1.6vh, 18px); }
+  #s-produits .pr-panel { gap: clamp(18px, 2vw, 28px); }
+  #s-produits .pr-desc { font-size: clamp(13px, 1.62vh, 15px); line-height: 1.5; }
+  #s-produits .pr-points { gap: clamp(5px, .9vh, 9px); }
+  #s-produits .pr-points li { font-size: clamp(12.5px, 1.55vh, 14.5px); line-height: 1.38; }
+  #s-produits .pr-models__t { margin-bottom: clamp(5px, .9vh, 9px); }
+  #s-produits .pr-models li { padding: clamp(3px, .45vh, 5px) 11px; font-size: clamp(11.5px, 1.4vh, 12.5px); }
+}
+/* écrans bas (portables à 125 %, petites fenêtres) : le chapeau s'efface, la liste garde ses neuf familles lisibles */
+@media (min-width: 1080px) and (max-height: 820px) {
+  #s-produits .pr-lead { display: none; }
+}
+@media (min-width: 1080px) and (max-height: 660px) {
+  #s-produits .pr-tab__line { display: none; }
+}

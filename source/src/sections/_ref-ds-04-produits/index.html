@@ -1,0 +1,91 @@
+<!-- Produits (tient sur un écran en desktop) : Grid Animations #4 (liste / grande vue, ouverture en croix) + Scroll Animation #9 (changement de photo en lames) -->
+<section id="s-produits" aria-labelledby="pr-title">
+  <span id="produits" class="pr-anchor"></span>
+  <div class="wrap pr-grid">
+    <div class="pr-side">
+      <header class="pr-head">
+        <p class="eyebrow">Produits</p>
+        <h2 class="pr-title" id="pr-title">Toute la protection solaire, de la fenêtre à la terrasse.</h2>
+        <p class="pr-lead">STOBAG pour les toiles et les pergolas, Somfy pour la motorisation, MHZ pour les moustiquaires : des fabricants suisses et européens reconnus, que nous posons et entretenons nous-mêmes.</p>
+      </header>
+
+      <div class="pr-list" role="tablist" aria-label="Familles de produits" aria-orientation="vertical">
+        <button class="pr-tab is-active" type="button" role="tab" id="pr-tab-toiles" aria-controls="pr-panel-toiles" aria-selected="true" data-key="toiles"><span class="pr-tab__t"><span class="pr-tab__name">Stores toiles</span><span class="pr-tab__line">Stores bannes pour terrasse et balcon</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+        <button class="pr-tab" type="button" role="tab" id="pr-tab-pergolas" aria-controls="pr-panel-pergolas" aria-selected="false" tabindex="-1" data-key="pergolas"><span class="pr-tab__t"><span class="pr-tab__name">Pergolas bioclimatiques</span><span class="pr-tab__line">Toit à lamelles orientables</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+        <button class="pr-tab" type="button" role="tab" id="pr-tab-lamelles" aria-controls="pr-panel-lamelles" aria-selected="false" tabindex="-1" data-key="lamelles"><span class="pr-tab__t"><span class="pr-tab__name">Stores à lamelles</span><span class="pr-tab__line">Brise-soleil orientables pour fenêtres</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+        <button class="pr-tab" type="button" role="tab" id="pr-tab-zip" aria-controls="pr-panel-zip" aria-selected="false" tabindex="-1" data-key="zip"><span class="pr-tab__t"><span class="pr-tab__name">Stores verticaux et ZIP</span><span class="pr-tab__line">Toile tendue en façade, même au vent</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+        <button class="pr-tab" type="button" role="tab" id="pr-tab-volets" aria-controls="pr-panel-volets" aria-selected="false" tabindex="-1" data-key="volets"><span class="pr-tab__t"><span class="pr-tab__name">Volets roulants</span><span class="pr-tab__line">Contre la chaleur et les effractions</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+        <button class="pr-tab" type="button" role="tab" id="pr-tab-battants" aria-controls="pr-panel-battants" aria-selected="false" tabindex="-1" data-key="battants"><span class="pr-tab__t"><span class="pr-tab__name">Volets battants et coulissants</span><span class="pr-tab__line">Aluminium thermolaqué, toutes les teintes</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+        <button class="pr-tab" type="button" role="tab" id="pr-tab-veranda" aria-controls="pr-panel-veranda" aria-selected="false" tabindex="-1" data-key="veranda"><span class="pr-tab__t"><span class="pr-tab__name">Jardins d'hiver</span><span class="pr-tab__line">Ombrage des vérandas et toits vitrés</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+        <button class="pr-tab" type="button" role="tab" id="pr-tab-interieurs" aria-controls="pr-panel-interieurs" aria-selected="false" tabindex="-1" data-key="interieurs"><span class="pr-tab__t"><span class="pr-tab__name">Stores intérieurs</span><span class="pr-tab__line">Vénitiens, enrouleurs, plissés</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+        <button class="pr-tab" type="button" role="tab" id="pr-tab-moustiquaires" aria-controls="pr-panel-moustiquaires" aria-selected="false" tabindex="-1" data-key="moustiquaires"><span class="pr-tab__t"><span class="pr-tab__name">Moustiquaires</span><span class="pr-tab__line">Sur mesure, presque invisibles</span></span><span class="pr-tab__bar" aria-hidden="true"><i></i></span></button>
+      </div>
+    </div>
+
+    <div class="pr-view">
+      <div class="pr-stage">
+        <img class="pr-base" data-img="p-toiles" alt="Stores toiles">
+        <div class="pr-dim" aria-hidden="true"></div>
+        <div class="pr-slats" aria-hidden="true"></div>
+        <figure class="pr-velux" aria-hidden="true"><img data-img="p-velux" alt=""><figcaption>Velux</figcaption></figure>
+        <div class="pr-cross" aria-hidden="true"></div>
+      </div>
+
+      <div class="pr-detail">
+        <div class="pr-dhead">
+          <p class="pr-kicker"><span class="pr-line">Stores bannes pour terrasse et balcon</span></p>
+          <h3 class="pr-name" aria-live="polite">Stores toiles</h3>
+        </div>
+        <button class="btn pr-cta" type="button" data-devis="toiles">Devis pour ce produit</button>
+
+        <div class="pr-panels">
+          <div class="pr-panel" role="tabpanel" id="pr-panel-toiles" aria-labelledby="pr-tab-toiles" tabindex="0">
+            <p class="pr-desc">Le classique de la terrasse : un store à bras articulés ou télescopiques, monté en façade ou sous dalle. Sans caisson pour l'économie, à caisson pour protéger la toile une fois repliée.</p>
+            <ul class="pr-points"><li>Jusqu'à 90 m² d'ombre avec le Jumbo</li><li>Éclairage LED et Volant-Plus en option</li><li>Rentoilage possible quand la toile s'use</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>Azur</li><li>Purabox</li><li>Select</li><li>Sigma</li><li>Jumbo</li><li>Casabox</li><li>Camabox</li><li>Tendabox</li><li>Resobox</li><li>Ombramobil</li><li>Boxmobil</li></ul></div>
+          </div>
+          <div class="pr-panel" role="tabpanel" id="pr-panel-pergolas" aria-labelledby="pr-tab-pergolas" tabindex="0" hidden>
+            <p class="pr-desc">La BAVONA de STOBAG : un toit à lamelles inclinables jusqu'à 160°, qui dose le soleil du matin au soir et se ferme contre la pluie. L'eau s'évacue par les montants.</p>
+            <ul class="pr-points"><li>Contre la façade ou en pavillon dans le jardin</li><li>Vitrage latéral et ombrage vertical en option</li><li>Éclairage intégré pour les soirées</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>Bavona TP6800</li><li>Pergola et pavillon</li><li>Toit vitré</li></ul></div>
+          </div>
+          <div class="pr-panel" role="tabpanel" id="pr-panel-lamelles" aria-labelledby="pr-tab-lamelles" tabindex="0" hidden>
+            <p class="pr-desc">Les lames orientables arrêtent le soleil avant la vitre et règlent la lumière sans fermer la pièce. De jour comme de nuit, elles préservent votre intimité.</p>
+            <ul class="pr-points"><li>Lames de 50 à 90 mm, en C ou en Z</li><li>AV-90 : fermeture impeccable, joint silencieux</li><li>Moins de chaleur, moins de climatisation</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>EXT-50</li><li>C-60</li><li>AV-70</li><li>C-80</li><li>F-80</li><li>AV-90</li><li>Z-90</li></ul></div>
+          </div>
+          <div class="pr-panel" role="tabpanel" id="pr-panel-zip" aria-labelledby="pr-tab-zip" tabindex="0" hidden>
+            <p class="pr-desc">La toile descend à la verticale dans des coulisses en aluminium. Avec le système ZIP, elle y est tenue comme par une fermeture éclair : stable au vent et, en version opaque, capable d'obscurcir totalement une pièce.</p>
+            <ul class="pr-points"><li>Ventosol ZIP pour une toile très tendue</li><li>Guidage par câble ou par tige en version fine</li><li>Stores à projection Metro, de 0° à 170°</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>Surava</li><li>Ventosol</li><li>Vertical</li><li>Metro</li><li>Visombra</li></ul></div>
+          </div>
+          <div class="pr-panel" role="tabpanel" id="pr-panel-volets" aria-labelledby="pr-tab-volets" tabindex="0" hidden>
+            <p class="pr-desc">Les volets roulants coupent la chaleur l'été, la gardent l'hiver et freinent les effractions grâce aux verrous anti-relevage. Idéals en rénovation, avec caisson extérieur si besoin.</p>
+            <ul class="pr-points"><li>Jusqu'à 3,5 m de large et 3 m de haut</li><li>Lames isolées au polyuréthane sans CFC</li><li>Imitation bois pour les bâtiments protégés</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>Regacompact</li><li>Regaroll</li><li>Regasicur</li><li>Monobloc</li><li>Regapak (empilable)</li></ul></div>
+          </div>
+          <div class="pr-panel" role="tabpanel" id="pr-panel-battants" aria-labelledby="pr-tab-battants" tabindex="0" hidden>
+            <p class="pr-desc">Des volets en profils d'aluminium extrudés et renforcés, traités par chromatation puis thermolaqués au four à 180° pour éviter l'oxydation. Coulissants sur rails de fabrication suisse, motorisation en option.</p>
+            <ul class="pr-points"><li>Teintes RAL, NCS ou VSR, aspect satiné, mat ou structuré</li><li>Cadre de 70 × 32 mm, jalousies de 10 × 50 mm</li><li>Motorisation Yslo Flex RTS, sans travaux de maçonnerie</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>Battants</li><li>Coulissants</li><li>Bras motorisés</li><li>Gonds motorisés</li></ul></div>
+          </div>
+          <div class="pr-panel" role="tabpanel" id="pr-panel-veranda" aria-labelledby="pr-tab-veranda" tabindex="0" hidden>
+            <p class="pr-desc">Sous une verrière, la température peut dépasser largement 60 °C en été. Un store de véranda garde l'endroit agréable, pour vous comme pour les plantes.</p>
+            <ul class="pr-points"><li>Arnex, l'ombrage des toits vitrés</li><li>Targa pour les grandes surfaces et les formes spéciales</li><li>Airomatic, discret, pour les petites vérandas</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>Arnex</li><li>Targa</li><li>Airomatic</li></ul></div>
+          </div>
+          <div class="pr-panel" role="tabpanel" id="pr-panel-interieurs" aria-labelledby="pr-tab-interieurs" tabindex="0" hidden>
+            <p class="pr-desc">À l'intérieur, le store règle la lumière et la vue. Enrouleurs en tissu, plissés pour les vérandas, vénitiens ou bandes verticales pour les bureaux, et stores pour fenêtres de toit Velux.</p>
+            <ul class="pr-points"><li>Plissés pour vérandas et fenêtres inclinées</li><li>Bandes verticales pour les grands vitrages</li><li>Stores pour fenêtres de toit Velux</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>Vénitiens</li><li>Enrouleurs</li><li>Plissés</li><li>Bandes verticales</li><li>Velux</li></ul></div>
+          </div>
+          <div class="pr-panel" role="tabpanel" id="pr-panel-moustiquaires" aria-labelledby="pr-tab-moustiquaires" tabindex="0" hidden>
+            <p class="pr-desc">Des moustiquaires MHZ fabriquées sur mesure pour les fenêtres, portes, fenêtres de toit et soupiraux. Les profilés en aluminium se fondent dans la façade et laissent fenêtres et volets fonctionner normalement.</p>
+            <ul class="pr-points"><li>Toile anti-pollens pour les personnes allergiques</li><li>Pose sans perçage pour certains modèles</li><li>Chatière pour chiens et chats en option</li></ul>
+            <div class="pr-models"><p class="pr-models__t">Modèles</p><ul><li>Cadres</li><li>Portes battantes</li><li>Coulissants</li><li>Plissés</li><li>Enrouleurs</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

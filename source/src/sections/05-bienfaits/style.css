@@ -1,0 +1,61 @@
+/* Bienfaits : six raisons sur une grille suisse, révélées ligne à ligne par un bloc qui s'étire puis se retire
+   (Text Animations #15). État final par défaut : le JS ne cache le texte que si le mouvement est permis. */
+#s-bienfaits {
+  position: relative;
+  background: var(--ice);
+  padding: clamp(84px, 8vw, 124px) 0 clamp(80px, 7.5vw, 116px);
+  overflow-x: clip;
+}
+#s-bienfaits .bf__anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+
+#s-bienfaits .bf__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 32px clamp(32px, 5vw, 80px); }
+#s-bienfaits .bf__title { margin-top: 22px; max-width: 18ch; font-size: clamp(46px, 5.8vw, 88px); line-height: .96; letter-spacing: -.01em; }
+
+/* la cuve vue du dessus : anneaux inox, eau glacée qui tourne très lentement */
+#s-bienfaits .bf__disc { position: relative; width: clamp(150px, 15vw, 224px); aspect-ratio: 1; color: var(--inox); }
+#s-bienfaits .bf__disc svg { position: absolute; inset: 0; width: 100%; height: 100%; stroke-width: 1; vector-effect: non-scaling-stroke; }
+#s-bienfaits .bf__disc circle { vector-effect: non-scaling-stroke; }
+#s-bienfaits .bf__water { position: absolute; inset: 15%; border-radius: 50%; overflow: hidden; background: var(--ice-2); }
+#s-bienfaits .bf__water img { width: 100%; height: 100%; object-fit: cover; }
+
+/* six raisons : filet fin, court trait rouge, titre Antonio, une phrase */
+#s-bienfaits .bf__list {
+  list-style: none; margin: clamp(48px, 5vw, 76px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(36px, 3.6vw, 52px) clamp(28px, 3.4vw, 56px);
+}
+#s-bienfaits .bf__item { position: relative; padding-top: 24px; }
+#s-bienfaits .bf__rule { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--line); transform-origin: left center; }
+#s-bienfaits .bf__rule::after { content: ""; position: absolute; left: 0; top: -1px; width: 28px; height: 3px; background: var(--red); }
+#s-bienfaits .bf__item h3 { font-size: clamp(25px, 2vw, 32px); line-height: 1; letter-spacing: 0; }
+#s-bienfaits .bf__item p { margin-top: 14px; max-width: 36ch; font-size: clamp(16px, .25vw + 13.5px, 17.5px); line-height: 1.55; color: var(--ink-soft); }
+
+#s-bienfaits .bf__foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px clamp(32px, 5vw, 80px);
+  margin-top: clamp(48px, 5vw, 72px); padding-top: 28px; border-top: 1px solid var(--line);
+}
+#s-bienfaits .bf__note { max-width: 64ch; font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
+#s-bienfaits .bf__cta { flex: none; }
+
+/* lignes du bloc révélateur (posées par le script) */
+#s-bienfaits .bf-line { display: block; }
+#s-bienfaits .bf-lw { position: relative; display: block; width: max-content; max-width: 100%; margin-inline: var(--bf-m, 0); }
+#s-bienfaits .bf-blk { position: absolute; inset: -.06em -.02em -.04em; pointer-events: none; transform: scaleX(0); transform-origin: left center; }
+
+@media (max-width: 1024px) {
+  #s-bienfaits .bf__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  #s-bienfaits { --bf-m: auto; padding: 72px 0 76px; }
+  #s-bienfaits .bf__head { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: 28px; }
+  #s-bienfaits .bf__disc { order: -1; width: 132px; }
+  #s-bienfaits .bf__title { margin-top: 18px; max-width: 11ch; margin-inline: auto; font-size: clamp(40px, 11.4vw, 52px); }
+  /* liste : alignée à gauche, une raison par ligne */
+  #s-bienfaits .bf__list { --bf-m: 0; grid-template-columns: minmax(0, 1fr); gap: 30px; margin-top: 44px; }
+  #s-bienfaits .bf__item { padding-top: 20px; }
+  #s-bienfaits .bf__item h3 { font-size: 26px; }
+  #s-bienfaits .bf__item p { margin-top: 10px; }
+  #s-bienfaits .bf__foot { justify-content: center; text-align: center; margin-top: 44px; }
+  /* sur mobile, la barre fixe porte déjà la réservation */
+  #s-bienfaits .bf__cta { display: none; }
+}

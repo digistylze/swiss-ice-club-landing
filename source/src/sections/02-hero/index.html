@@ -1,0 +1,45 @@
+<!-- Hero + préchargement, une seule scène WebGL (three.js) : le bain du club modélisé d'après les photos (fût noir mat,
+     cuve inox à bord roulé, logo flocon, escabeau à marches en chêne), vu du dessus pendant le chargement (compteur à
+     rouleaux du Hero Animations #8). Une femme en maillot noir (modèle 3D riggé, animation générée) arrive, monte l'escabeau
+     et entre dans l'eau glacée ; la caméra descend devant le bain et les informations apparaissent autour d'elle, reliées
+     au bain par des filets. QA : ?pre=99 saute l'intro ; ?pre=<s> fige l'animation à s secondes ; ?pre=l0.4 fige le chargement. -->
+<section id="s-hero" aria-labelledby="hero-title">
+  <canvas class="hr-gl" aria-hidden="true"></canvas>
+  <img class="hr-fallback" data-img="bain-face" alt="" width="1100" height="1650">
+  <div class="hr-shade" aria-hidden="true"></div>
+
+  <!-- étiquettes autour du bain (positionnées en JS sur des points du modèle 3D) -->
+  <svg class="hr-lines" aria-hidden="true"><g></g></svg>
+  <ul class="hr-tags" aria-label="Le bain froid en bref">
+    <li class="hr-tag" data-anchor="breath"><b>Wim Hof Method</b><span>Respiration guidée par un instructeur certifié</span></li>
+    <li class="hr-tag" data-anchor="time"><b>1 à 3 min</b><span>pour un premier bain</span></li>
+    <li class="hr-tag" data-anchor="water"><b>0 à 10 °C</b><span>Eau réglée selon votre niveau</span></li>
+    <li class="hr-tag" data-anchor="rim"><b>Cuve inox</b><span>Eau filtrée et contrôlée chaque jour</span></li>
+  </ul>
+
+  <div class="hr-copy">
+    <p class="eyebrow hr-eyebrow">Bains froids · Carouge, Genève</p>
+    <h1 class="hr-title" id="hero-title">Bien plus que le froid.</h1>
+    <p class="hr-lead">Bain froid, sauna infrarouge et respiration, avec un instructeur certifié Wim Hof Method à vos côtés. Votre première séance dure une heure, et vous repartez en sachant pratiquer.</p>
+    <div class="hr-ctas">
+      <button class="btn" type="button" data-book="decouverte" data-hero-cta>Réserver ma séance découverte</button>
+      <button class="btn btn--ghost" type="button" data-book="entretien">Entretien gratuit 15 min</button>
+    </div>
+    <p class="hr-price"><span>Séance découverte</span><span>60 à 75 min</span><span>120 CHF</span></p>
+    <p class="hr-proof"><span class="hr-stars" aria-hidden="true"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.4 5.9.7-4.4 4 1.2 5.8L10 14.6 4.8 17.5 6 11.7l-4.4-4 5.9-.7z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.4 5.9.7-4.4 4 1.2 5.8L10 14.6 4.8 17.5 6 11.7l-4.4-4 5.9-.7z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.4 5.9.7-4.4 4 1.2 5.8L10 14.6 4.8 17.5 6 11.7l-4.4-4 5.9-.7z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.4 5.9.7-4.4 4 1.2 5.8L10 14.6 4.8 17.5 6 11.7l-4.4-4 5.9-.7z"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6l2.5 5.4 5.9.7-4.4 4 1.2 5.8L10 14.6 4.8 17.5 6 11.7l-4.4-4 5.9-.7z"/></svg></span><span><b>5,0</b> sur Google · 33 avis</span></p>
+  </div>
+  <a class="hr-scroll" href="#offres" aria-label="Voir les expériences"><span>Les expériences</span><i aria-hidden="true"></i></a>
+
+  <!-- préchargement : interface posée sur la même scène, retirée une fois le hero en place -->
+  <div class="hr-pre" data-intro-loader>
+    <div class="hr-pre__brand"><img data-img="logo" alt="" width="30" height="36"><span>SWISS ICE CLUB</span></div>
+    <p class="hr-pre__place">Carouge · Genève</p>
+    <div class="hr-pre__load" role="status" aria-live="polite">
+      <p class="hr-pre__label"><span class="hr-pre__label-a">Mise à température</span><span class="hr-pre__label-b">L'eau est prête</span></p>
+      <p class="hr-pre__count" aria-hidden="true"><span class="hr-pre__digits"></span><span class="hr-pre__pct">%</span></p>
+      <p class="hr-pre__temp" aria-hidden="true">Eau <b>12,0</b> °C</p>
+      <span class="sr-only hr-pre__sr">Chargement</span>
+    </div>
+    <button class="hr-pre__skip" type="button">Passer l'intro</button>
+  </div>
+</section>

@@ -1,0 +1,67 @@
+/* Avis : Shapes Slideshow (Sliders #13) : la photo suivante entre dans un petit rond qui grandit, citations en lignes masquées */
+#s-avis {
+  position: relative;
+  overflow-x: clip;
+  background: var(--stone-2);
+  padding: clamp(80px, 8vw, 120px) 0 clamp(80px, 8vw, 116px);
+}
+#s-avis .avis__anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+#s-avis .avis__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+#s-avis .avis__col { width: 47%; max-width: 580px; display: flex; flex-direction: column; }
+#s-avis .avis__title { margin-top: 18px; font-size: clamp(34px, 3.2vw, 52px); }
+#s-avis .avis__stars { display: inline-block; height: 13px; width: auto; color: var(--cembro-deep); fill: currentColor; flex: none; }
+#s-avis .avis__stars--lg { height: .36em; margin-left: .25em; vertical-align: .12em; }
+
+/* photos : bloc à droite, plein haut de section ; le rond déborde du bord droit de l'écran */
+#s-avis .avis__media { position: absolute; top: 0; bottom: 0; right: 0; width: 50%; overflow: hidden; pointer-events: none; }
+#s-avis .avis__shape { position: absolute; inset: 0; overflow: hidden; visibility: hidden; }
+#s-avis .avis__shape:first-child { visibility: visible; clip-path: inset(4% 13% 4% 33%); }
+#s-avis .avis__shape img { position: absolute; left: 0; top: var(--it, 0px); width: 100%; height: var(--ih, 100%); object-fit: cover; }
+
+/* citations empilées dans la même cellule : la hauteur est celle de la plus longue, rien ne saute */
+#s-avis .avis__quotes { display: grid; margin-top: clamp(32px, 4vw, 52px); }
+#s-avis .avis__q { grid-area: 1 / 1; margin: 0; display: flex; flex-direction: column; justify-content: center; visibility: hidden; }
+#s-avis .avis__q.is-current { visibility: visible; }
+#s-avis .avis__text {
+  margin: 0; max-width: 30ch;
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(24px, .9vw + 18px, 36px); line-height: 1.28; color: var(--ink);
+}
+/* masques de ligne (SplitText) : marge pour les accents et les jambages */
+#s-avis .avis__text > div { padding: .12em 0 .08em; margin: -.12em 0 -.08em; }
+#s-avis .avis__cap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 26px; }
+#s-avis .avis__who { font-family: var(--f-body); font-weight: 500; font-size: 13.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--cembro-deep); }
+
+/* navigation : flèches fines + compteur dans une ellipse, comme l'original */
+#s-avis .avis__nav { display: flex; align-items: center; gap: 4px; margin-top: clamp(30px, 3.5vw, 44px); }
+#s-avis .avis__arrow {
+  display: grid; place-items: center; width: 64px; height: 48px; padding: 0;
+  background: none; border: 0; border-radius: 999px; cursor: pointer; color: var(--ink);
+  transition: color .4s var(--ease), transform .6s var(--ease);
+}
+#s-avis .avis__arrow svg { width: 52px; height: 23px; fill: currentColor; }
+#s-avis .avis__arrow:hover { color: var(--cembro-deep); }
+#s-avis .avis__arrow[data-dir="-1"]:hover { transform: translateX(-4px); }
+#s-avis .avis__arrow[data-dir="1"]:hover { transform: translateX(4px); }
+#s-avis .avis__count {
+  margin-left: 18px; padding: .85em 1.5em; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line);
+  font-family: var(--f-body); font-size: 15px; letter-spacing: .12em; font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap;
+}
+#s-avis .avis__cur-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+#s-avis .avis__cur { display: inline-block; }
+#s-avis .avis__google { align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; margin-top: 20px; font-size: 15px; font-weight: 600; color: var(--ink-soft); transition: color .4s var(--ease); }
+#s-avis .avis__google:hover { color: var(--ink); }
+
+/* mobile : titre, rond photo pleine largeur, citation, navigation */
+@media (max-width: 768px) {
+  #s-avis .avis__col { width: 100%; max-width: none; text-align: center; }
+  #s-avis .avis__media { position: relative; top: auto; bottom: auto; right: auto; width: auto; height: clamp(250px, 74vw, 340px); margin: 32px calc(-1 * var(--gutter)) 0; }
+  #s-avis .avis__shape:first-child { clip-path: inset(3% 12% 3% 12%); }
+  #s-avis .avis__quotes { margin-top: 30px; }
+  #s-avis .avis__text { max-width: none; }
+  #s-avis .avis__who { font-size: 15px; letter-spacing: .14em; }
+  #s-avis .avis__cap { justify-content: center; }
+  #s-avis .avis__nav { justify-content: center; margin-top: 30px; }
+  #s-avis .avis__google { align-self: center; }
+}

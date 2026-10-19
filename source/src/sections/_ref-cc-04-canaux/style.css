@@ -1,0 +1,57 @@
+/* Quatre canaux : Scroll Animation #29 (texte à gauche, photo collée à droite qui se découpe vers la suivante, fond qui change).
+   Mobile : accordéon, un canal ouvert à la fois (photo et texte dans le volet), le fond prend la lumière du canal ouvert. */
+#s-canaux { position: relative; background: #18142A; color: var(--mist); padding: clamp(72px, 8vw, 116px) 0 clamp(64px, 7vw, 104px); }
+#s-canaux .cx__head .eyebrow { margin-bottom: 20px; }
+#s-canaux .cx__head h2 { font-size: clamp(42px, 5vw, 80px); max-width: 11em; }
+#s-canaux .cx__intro { margin-top: 20px; max-width: 42ch; font-size: clamp(17px, 1.1vw, 19px); }
+#s-canaux .cx__n { display: block; margin-bottom: 8px; font-family: var(--f-display); font-weight: 500; font-size: 44px; line-height: 1; color: var(--cembro); }
+#s-canaux .cx__txt h3 { margin: 0 0 14px; font-size: clamp(34px, 3vw, 52px); }
+#s-canaux .cx__txt p { max-width: 40ch; }
+#s-canaux .cx__btn { margin-top: 30px; }
+#s-canaux .cx__ph, #s-canaux .cx__frame { position: relative; margin: 0; overflow: hidden; border-radius: 22px; background: var(--night-2); }
+#s-canaux .cx__ph img, #s-canaux .cx__img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
+/* nom du canal affiché, en bas de la photo collée */
+#s-canaux .cx__tag {
+  position: absolute; z-index: 9; left: 18px; bottom: 18px; overflow: hidden;
+  padding: .7em 1.2em; border-radius: 999px; background: rgba(14, 16, 20, .62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--pearl);
+}
+#s-canaux .cx__tag span { display: block; }
+
+/* desktop : la colonne de droite a une largeur fixe, son bloc interne .cx__pin reste collé (sticky) le temps des canaux */
+@media (min-width: 900px) {
+  #s-canaux { padding-bottom: 0; }
+  #s-canaux .cx__grid { display: flex; justify-content: space-between; gap: 48px; }
+  #s-canaux .cx__list { flex: 0 0 48%; min-width: 0; padding-bottom: 14svh; }
+  /* ~38 % d'écran par canal : cinq découpes en moins de deux écrans */
+  #s-canaux .cx__item { min-height: 38svh; display: flex; align-items: center; }
+  #s-canaux .cx__ph { display: none; }
+  #s-canaux .cx__media { flex: 0 0 42%; min-width: 0; }
+  #s-canaux .cx__pin { position: sticky; top: 0; height: 100svh; display: flex; align-items: center; justify-content: flex-end; padding: 96px 0 28px; }
+  #s-canaux .cx__frame { width: min(100%, calc((100svh - 124px) * .8)); aspect-ratio: 4 / 5; }
+  #s-canaux .cx__img { position: absolute; inset: 0; }
+}
+
+/* mobile et tablette : accordéon centré, le titre de chaque canal devient un bouton (créé par le script) */
+@media (max-width: 899px) {
+  #s-canaux .cx__media { display: none; }
+  #s-canaux .cx__head { margin-bottom: 36px; text-align: center; }
+  #s-canaux .cx__head h2, #s-canaux .cx__intro { margin-left: auto; margin-right: auto; }
+  #s-canaux .cx__item { border-top: 1px solid var(--line-light); text-align: center; }
+  #s-canaux .cx__item:last-child { border-bottom: 1px solid var(--line-light); }
+  #s-canaux .cx__txt h3 { margin: 0; font-size: clamp(27px, 7.4vw, 38px); }
+  #s-canaux .cx__toggle {
+    display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 8px;
+    width: 100%; min-height: 76px; padding: 12px 0; border: 0; background: none; cursor: pointer;
+    color: inherit; font: inherit; letter-spacing: inherit; line-height: 1.1; text-align: center;
+  }
+  #s-canaux .cx__toggle .cx__n { margin: 0; font-size: 24px; text-align: left; }
+  #s-canaux .cx__item:last-child .cx__toggle .cx__n { visibility: hidden; }   /* « + » à gauche doublait l'icône d'ouverture */
+  #s-canaux .cx__ico { justify-self: end; position: relative; width: 18px; height: 18px; }
+  #s-canaux .cx__ico::before, #s-canaux .cx__ico::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -.75px; background: var(--cembro); transition: transform .45s var(--ease); }
+  #s-canaux .cx__ico::after { transform: rotate(90deg); }
+  #s-canaux .is-open .cx__ico::after { transform: rotate(0deg); }
+  #s-canaux .cx__ph { aspect-ratio: 16 / 10; margin: 4px 0 18px; }
+  #s-canaux .cx__body p { margin: 0 auto; padding-bottom: 30px; }
+  #s-canaux .cx__btn { display: none; }   /* la barre du bas porte déjà l'appel */
+}

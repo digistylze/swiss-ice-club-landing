@@ -1,0 +1,103 @@
+/* Formules : Scroll Animation #40 (le lit étoilé coupé en trois cartes qui se retournent) + bande Carmelo Crea et chiffres */
+#s-formules { position: relative; background: var(--stone); overflow-x: clip; }
+#s-formules .fm-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+#s-formules .fm-head { text-align: center; }
+#s-formules .fm-head .eyebrow { margin-bottom: 14px; }
+
+/* scène épinglée sur desktop (l'effet l'exige : la photo occupe l'écran pendant qu'elle se découpe) */
+#s-formules .fm-stage {
+  position: relative; height: 100svh; min-height: 620px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+  padding: 84px var(--gutter) 40px;
+}
+#s-formules .fm-title { font-size: clamp(42px, 4.6vw, 76px); text-align: center; max-width: 14em; margin: 0 auto; }
+
+#s-formules .fm-cards { display: flex; gap: 0; width: min(76vw, 1100px); perspective: 1000px; }
+#s-formules .fm-card {
+  --r: 10px;
+  position: relative; flex: 1 1 0; min-width: 0;
+  display: grid; aspect-ratio: var(--ar, 4 / 7);
+  transform-style: preserve-3d; transform-origin: 50% 100%;
+}
+#s-formules .fm-card:nth-child(1) { --k: 0; border-radius: var(--r) 0 0 var(--r); }
+#s-formules .fm-card:nth-child(2) { --k: 1; }
+#s-formules .fm-card:nth-child(3) { --k: 2; border-radius: 0 var(--r) var(--r) 0; }
+
+#s-formules .fm-card__front,
+#s-formules .fm-card__back {
+  grid-area: 1 / 1; border-radius: inherit; overflow: hidden;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+/* une seule photo répartie sur les trois cartes : chaque carte en montre un tiers (--z : zoom, --py : cadrage vertical) */
+#s-formules .fm-card__front {
+  --z: 1.04; --py: 62%;
+  background-color: var(--night); background-repeat: no-repeat;
+  background-size: calc(300% * var(--z)) auto;
+  background-position: calc(var(--k) / (3 * var(--z) - 1) * 100%) var(--py);
+  box-shadow: 0 34px 50px -36px rgba(14, 16, 20, .55);
+}
+#s-formules .fm-card__back {
+  transform: rotateY(180deg);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 12px;
+  padding: clamp(20px, 2vw, 32px);
+  background: var(--night); color: var(--pearl);
+  box-shadow: 0 34px 50px -36px rgba(14, 16, 20, .55);
+}
+#s-formules .fm-card__n { margin-bottom: auto; font-family: var(--f-display); font-weight: 500; font-size: calc(clamp(44px, 4vw, 64px) * var(--fit, 1)); line-height: 1; color: var(--cembro); }
+#s-formules.fm-tight .fm-card__n { display: none; }
+#s-formules .fm-card__back h3 { color: inherit; font-size: calc(clamp(26px, 2.1vw, 36px) * var(--fit, 1)); }
+#s-formules .fm-card__back p { font-size: calc(clamp(15px, 1vw, 16.5px) * var(--fit, 1)); line-height: 1.5; color: var(--mist); }
+#s-formules .fm-card__btn {
+  align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; margin-top: 6px; padding: 0 1.3em;
+  border: 0; border-radius: 999px; cursor: pointer; background: transparent; box-shadow: inset 0 0 0 1px currentColor;
+  font-family: var(--f-body); font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: inherit;
+  transition: background .35s var(--ease), color .35s var(--ease), box-shadow .35s var(--ease);
+}
+#s-formules .fm-card__btn:hover { background: var(--pearl); color: var(--night); box-shadow: none; }
+#s-formules .fm-card:nth-child(2) .fm-card__back { background: var(--stone-2); color: var(--ink); }
+#s-formules .fm-card:nth-child(2) .fm-card__n { color: var(--cembro-deep); }
+#s-formules .fm-card:nth-child(2) .fm-card__back p { color: var(--ink-soft); }
+#s-formules .fm-card:nth-child(2) .fm-card__btn:hover { background: var(--ink); color: var(--pearl); }
+
+/* bande parcours + chiffres */
+#s-formules .fm-band {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px 72px; align-items: end;
+  padding-top: clamp(32px, 4vw, 64px); padding-bottom: clamp(64px, 7vw, 104px);
+}
+#s-formules .fm-story { max-width: 34em; }
+#s-formules .fm-story p:first-child { font-size: clamp(17px, 1.1vw, 19px); line-height: 1.6; color: var(--ink-soft); }
+#s-formules .fm-sign { margin-top: 18px; font-family: var(--f-display); font-weight: 500; font-size: clamp(24px, 1.6vw, 30px); line-height: 1.25; color: var(--ink); }
+#s-formules .fm-stats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+#s-formules .fm-stat__n { display: block; font-family: var(--f-display); font-weight: 500; font-size: clamp(56px, 6.6vw, 108px); line-height: .9; color: var(--ink); font-variant-numeric: lining-nums tabular-nums; }
+#s-formules .fm-stat__l { display: block; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.4; color: var(--ink-soft); }
+
+/* tirets du slider mobile */
+#s-formules .fm-dots { display: none; }
+#s-formules .fm-dots button { position: relative; width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+#s-formules .fm-dots button::before { content: ""; position: absolute; left: 8px; right: 8px; top: 21px; height: 2px; background: var(--line); transition: background .4s var(--ease); }
+#s-formules .fm-dots button[aria-current]::before { background: var(--ink); }
+
+/* mobile et tablette : les trois formules en slider (défilement horizontal natif, aimanté), elles se retournent à l'arrivée */
+@media (max-width: 999px) {
+  #s-formules .fm-stage { height: auto; min-height: 0; gap: 28px; padding: clamp(64px, 12vw, 96px) 0 0; }
+  #s-formules .fm-head { padding: 0 var(--gutter); }
+  #s-formules .fm-cards {
+    width: 100%; gap: 12px; perspective: 1200px;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+    padding: 4px var(--gutter) 34px; scrollbar-width: none;
+  }
+  #s-formules .fm-cards::-webkit-scrollbar { display: none; }
+  #s-formules .fm-card { flex: 0 0 min(84%, 420px); aspect-ratio: auto; min-height: 330px; scroll-snap-align: start; }
+  #s-formules .fm-card__front { background-size: cover; background-position: calc(var(--k) * 50%) 60%; }
+  #s-formules .fm-card__back { align-items: center; padding: 30px 24px; text-align: center; }
+  #s-formules .fm-card__btn { align-self: center; }
+  #s-formules .fm-dots { display: flex; justify-content: center; margin-top: -30px; }
+  #s-formules .fm-band { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  #s-formules .fm-stats { gap: 12px; }
+  #s-formules .fm-stat__n { font-size: clamp(44px, 13vw, 72px); }
+  #s-formules .fm-stat__l { font-size: 15px; }
+}
+@media (max-width: 768px) {
+  #s-formules .fm-band { text-align: center; }
+  #s-formules .fm-story { margin: 0 auto; }
+}

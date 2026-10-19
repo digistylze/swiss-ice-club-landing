@@ -1,0 +1,60 @@
+<!-- Navigation Menus #2 : la pastille d'où l'on clique (pilule flottante en bas à droite, ou bouton « Demander une étude » de la
+     barre) se déploie en grand panneau : un formulaire rapide en 2 étapes -->
+<button class="devis-fab" type="button" data-devis aria-label="Parler de votre projet d'espace nuit : formulaire rapide">
+  <span class="devis-fab__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.2 14.6A8.5 8.5 0 0 1 9.4 3.8a8.5 8.5 0 1 0 10.8 10.8z"/></svg></span>
+  <span class="devis-fab__txt"><strong>Votre projet</strong><span>Formulaire rapide</span></span>
+</button>
+
+<div id="s-devis" class="on-dark">
+  <div class="devis__backdrop" aria-hidden="true"></div>
+  <div class="devis__panel" id="devis-panel" role="dialog" aria-modal="true" aria-labelledby="devis-title">
+    <form class="devis__form" novalidate data-lenis-prevent>
+      <div class="devis__head">
+        <h2 class="devis__title" id="devis-title">Votre projet d'espace nuit</h2>
+        <p class="devis__lead">Deux étapes, une minute. Nous vous rappelons pour convenir d'un rendez-vous chez vous.</p>
+        <div class="devis__progress">
+          <p class="devis__count" aria-live="polite"></p>
+          <span class="devis__seg"></span><span class="devis__seg"></span>
+        </div>
+      </div>
+
+      <fieldset class="devis__step" data-step="1">
+        <legend class="devis__q">Qu'aimeriez-vous faire ?</legend>
+        <div class="devis__chips devis__chips--col">
+          <label class="devis__chip"><input type="radio" name="projet" value="Habiller mon lit actuel" aria-describedby="devis-err-1"><span><strong>Habiller mon lit actuel</strong><em>Tableau, plafonnier, enduit, autour de la literie en place</em></span></label>
+          <label class="devis__chip"><input type="radio" name="projet" value="Espace nuit complet" aria-describedby="devis-err-1"><span><strong>Créer l'espace nuit complet</strong><em>Literie en pin cembro, quatre canaux, matelas eau ou gel</em></span></label>
+          <label class="devis__chip"><input type="radio" name="projet" value="Je ne sais pas encore" aria-describedby="devis-err-1"><span><strong>Je ne sais pas encore</strong><em>J'aimerais d'abord en parler</em></span></label>
+          <label class="devis__chip"><input type="radio" name="projet" value="Autre rénovation" aria-describedby="devis-err-1"><span><strong>Une autre rénovation</strong><em>Salle de bains, appartement, hammam</em></span></label>
+        </div>
+        <p class="devis__error" id="devis-err-1" role="alert"></p>
+        <div class="devis__actions">
+          <button class="btn devis__next" type="button">Continuer</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="devis__step" data-step="2" hidden>
+        <legend class="devis__q">Vos coordonnées</legend>
+        <label class="devis__field"><span class="devis__label">Nom</span><input name="nom" type="text" autocomplete="name" required aria-describedby="devis-err-2"></label>
+        <label class="devis__field"><span class="devis__label">Téléphone</span><input name="tel" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="devis-err-2"></label>
+        <label class="devis__field"><span class="devis__label">Commune <em>(facultatif)</em></span><input name="commune" type="text" autocomplete="address-level2"></label>
+        <p class="devis__error" id="devis-err-2" role="alert"></p>
+        <div class="devis__send">
+          <button class="btn" type="button" data-send="wa">Envoyer par WhatsApp</button>
+          <button class="btn btn--ghost" type="button" data-send="mail">Envoyer par e-mail</button>
+        </div>
+        <p class="devis__status" aria-live="polite"></p>
+        <div class="devis__actions">
+          <button class="devis__back" type="button">Retour</button>
+        </div>
+      </fieldset>
+    </form>
+    <p class="devis__foot">Ou appelez le <a href="tel:+41227383736">022 738 37 36</a>. Rien n'est envoyé sans votre clic dans WhatsApp ou votre messagerie.</p>
+  </div>
+  <!-- bouton de la pastille (original : « Menu » / « Close ») : « Votre projet » glisse vers « Fermer » -->
+  <button class="devis__close" type="button" aria-label="Fermer le formulaire" aria-controls="devis-panel">
+    <span class="devis__slider" aria-hidden="true">
+      <span class="devis__state">Votre projet</span>
+      <span class="devis__state devis__state--close"><span class="devis__close-txt">Fermer</span><svg viewBox="0 0 20 20"><path d="M3 3 17 17M17 3 3 17"/></svg></span>
+    </span>
+  </button>
+</div>

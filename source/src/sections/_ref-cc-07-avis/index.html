@@ -1,0 +1,59 @@
+<!-- Sliders #13 (Shapes Slideshow) : la photo suivante entre dans un petit rond qui grandit, les avis montent en lignes masquées -->
+<section id="s-avis" class="on-light" aria-labelledby="avis-titre">
+  <div id="avis" class="avis__anchor"></div>
+  <svg class="avis__defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs><linearGradient id="avis-half"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="currentColor" stop-opacity=".25"/></linearGradient></defs>
+    <symbol id="avis-star" viewBox="0 0 20 20"><path d="M10 1.4l2.6 5.5 6 .7-4.4 4.2 1.1 5.9L10 14.8l-5.3 2.9 1.1-5.9-4.4-4.2 6-.7z"/></symbol>
+  </svg>
+
+  <div class="wrap">
+    <div class="avis__col">
+      <p class="eyebrow">Avis Google</p>
+      <h2 id="avis-titre" class="avis__title">4,5 sur 5, 16 avis <svg class="avis__stars avis__stars--lg" viewBox="0 0 108 20" aria-hidden="true" focusable="false"><use href="#avis-star" width="20" height="20"/><use href="#avis-star" x="22" width="20" height="20"/><use href="#avis-star" x="44" width="20" height="20"/><use href="#avis-star" x="66" width="20" height="20"/><use href="#avis-star" x="88" width="20" height="20" fill="url(#avis-half)"/></svg></h2>
+
+      <!-- photos : formes rondes qui grandissent (Sliders #13), à droite sur desktop, sous le titre sur mobile -->
+      <div class="avis__media" aria-hidden="true">
+        <div class="avis__shape"><img data-img="balneo" alt="" width="900" height="608" style="object-position:50% 60%"></div>
+        <div class="avis__shape"><img data-img="sdb-apres" alt="" width="901" height="894" style="object-position:50% 55%"></div>
+        <div class="avis__shape"><img data-img="balneo-bain" alt="" width="720" height="480" style="object-position:50% 50%"></div>
+        <div class="avis__shape"><img data-img="douche-hammam" alt="" width="800" height="599" style="object-position:50% 50%"></div>
+        <div class="avis__shape"><img data-img="hammam" alt="" width="1600" height="1067" style="object-position:40% 50%"></div>
+      </div>
+
+      <div class="avis__quotes" aria-live="polite">
+        <figure class="avis__q is-current">
+          <blockquote class="avis__text">« Un accompagnement personnalisé par le directeur qui est à l'écoute et de très bon conseil, une équipe professionnelle. (…) Leur matériel est de première qualité et le service impeccable. »</blockquote>
+          <figcaption class="avis__cap"><span class="avis__who">Sabina · Baignoire balnéo</span><svg class="avis__stars" viewBox="0 0 108 20" role="img" aria-label="5 étoiles sur 5"><use href="#avis-star" width="20" height="20"/><use href="#avis-star" x="22" width="20" height="20"/><use href="#avis-star" x="44" width="20" height="20"/><use href="#avis-star" x="66" width="20" height="20"/><use href="#avis-star" x="88" width="20" height="20"/></svg></figcaption>
+        </figure>
+        <figure class="avis__q">
+          <blockquote class="avis__text">« Je suis ravie de la prestation de CREA Immobilier qui a réalisé mes travaux de rénovation dans les temps, apportant des solutions à chaque problème (…). Rien n'est laissé au hasard. »</blockquote>
+          <figcaption class="avis__cap"><span class="avis__who">Sophie Hausermann · Rénovation</span><svg class="avis__stars" viewBox="0 0 108 20" role="img" aria-label="5 étoiles sur 5"><use href="#avis-star" width="20" height="20"/><use href="#avis-star" x="22" width="20" height="20"/><use href="#avis-star" x="44" width="20" height="20"/><use href="#avis-star" x="66" width="20" height="20"/><use href="#avis-star" x="88" width="20" height="20"/></svg></figcaption>
+        </figure>
+        <figure class="avis__q">
+          <blockquote class="avis__text">« M. Crea donne d'excellents conseils. L'installation de la baignoire s'est très bien déroulée. Equipe professionnelle et compétente. Je recommande. »</blockquote>
+          <figcaption class="avis__cap"><span class="avis__who">Giuseppe Santandrea · Baignoire</span><svg class="avis__stars" viewBox="0 0 108 20" role="img" aria-label="5 étoiles sur 5"><use href="#avis-star" width="20" height="20"/><use href="#avis-star" x="22" width="20" height="20"/><use href="#avis-star" x="44" width="20" height="20"/><use href="#avis-star" x="66" width="20" height="20"/><use href="#avis-star" x="88" width="20" height="20"/></svg></figcaption>
+        </figure>
+        <figure class="avis__q">
+          <blockquote class="avis__text">« Un savoir-faire indéniable ! De bons produits ! Ma douche hamamm a 12 ans !!! Je recommande »</blockquote>
+          <figcaption class="avis__cap"><span class="avis__who">Francis C. · Douche hammam</span><svg class="avis__stars" viewBox="0 0 108 20" role="img" aria-label="5 étoiles sur 5"><use href="#avis-star" width="20" height="20"/><use href="#avis-star" x="22" width="20" height="20"/><use href="#avis-star" x="44" width="20" height="20"/><use href="#avis-star" x="66" width="20" height="20"/><use href="#avis-star" x="88" width="20" height="20"/></svg></figcaption>
+        </figure>
+        <figure class="avis__q">
+          <blockquote class="avis__text">« Bons produits et travail professionnel »</blockquote>
+          <figcaption class="avis__cap"><span class="avis__who">Michael Hartmann · Hammam</span><svg class="avis__stars" viewBox="0 0 108 20" role="img" aria-label="5 étoiles sur 5"><use href="#avis-star" width="20" height="20"/><use href="#avis-star" x="22" width="20" height="20"/><use href="#avis-star" x="44" width="20" height="20"/><use href="#avis-star" x="66" width="20" height="20"/><use href="#avis-star" x="88" width="20" height="20"/></svg></figcaption>
+        </figure>
+      </div>
+
+      <div class="avis__nav">
+        <button class="avis__arrow" type="button" data-dir="-1" aria-label="Avis précédent">
+          <svg viewBox="0 0 55 24" aria-hidden="true" focusable="false"><path d="M1.176 11.532a.5.5 0 00-.352.936c5.228 1.96 9.475 5.555 12.752 10.797a.5.5 0 00.848-.53c-3.39-5.424-7.81-9.163-13.248-11.203z"/><path d="M1.176 12.468a.5.5 0 01-.352-.936C6.052 9.572 10.3 5.978 13.576.735a.5.5 0 01.848.53c-3.39 5.424-7.81 9.163-13.248 11.203z"/><path d="M1 12.5a.5.5 0 110-1h53a.5.5 0 110 1H1z"/></svg>
+        </button>
+        <button class="avis__arrow" type="button" data-dir="1" aria-label="Avis suivant">
+          <svg viewBox="0 0 55 24" aria-hidden="true" focusable="false"><path d="M53.824 11.532a.5.5 0 01.352.936c-5.228 1.960-9.475 5.555-12.752 10.797a.5.5 0 01-.848-.53c3.39-5.424 7.81-9.163 13.248-11.203z"/><path d="M53.824 12.468a.5.5 0 00.352-.936C48.948 9.572 44.7 5.978 41.424.735a.5.5 0 00-.848.53c3.39 5.424 7.81 9.163 13.248 11.203z"/><path d="M54 12.5a.5.5 0 100-1H1a.5.5 0 100 1h53z"/></svg>
+        </button>
+        <p class="avis__count"><span class="avis__cur-mask"><span class="avis__cur">01</span></span> / 05</p>
+      </div>
+
+      <a class="link avis__google" href="https://maps.app.goo.gl/HSTn6id8on2FPZJ66" target="_blank" rel="noopener">Lire tous les avis sur Google<span class="sr-only"> (nouvel onglet)</span></a>
+    </div>
+  </div>
+</section>

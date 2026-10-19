@@ -1,0 +1,155 @@
+/* Cercle privé LE 30 : noir et or (seule section dorée, d'après le visuel LE 30), anneau de mots tracé sur canvas autour
+   d'un très grand « 30 » ; puis l'offre Entreprises, en retrait (pas d'or, contour fin). */
+#s-cercle {
+  --gold: #C8A45A;
+  --gold-hi: #EBD59F;
+  --gold-lo: #8C6F35;
+  --gold-line: rgba(200, 164, 90, .24);
+  --black: #070708;
+  position: relative;
+  background: var(--black);
+  padding: clamp(88px, 9vw, 136px) 0 clamp(72px, 7vw, 112px);
+  overflow-x: clip;
+}
+#s-cercle .ce-anchor { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+
+#s-cercle .ce-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 88px);
+  align-items: center;
+}
+
+/* scène carrée : le canvas de l'anneau et le « 30 » au centre (tailles en cqw : elles suivent la scène) */
+#s-cercle .ce-stage {
+  position: relative;
+  width: 100%;
+  max-width: min(620px, 72vh);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  container-type: inline-size;
+}
+#s-cercle .ce-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+#s-cercle .ce-num {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* Antonio : chiffres de .139em à 1.018em dans une ligne de 1em ; le léger décalage les centre visuellement */
+  transform: translate(-50%, calc(-50% - .05em));
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0 .02em;
+  overflow: hidden;            /* masque : les chiffres montent depuis le bas */
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 38cqw;
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* or du visuel LE 30 : dégradé métallique dont le reflet suit la rotation de l'anneau (--sheen, posé par le script) */
+#s-cercle .ce-num span {
+  display: block;
+  padding-bottom: .04em;       /* le fond (et donc l'or) doit couvrir le bas des chiffres, sous la ligne */
+  background: linear-gradient(105deg, var(--gold-lo) 0%, var(--gold) 26%, var(--gold-hi) 44%, var(--gold) 58%, var(--gold-lo) 82%, var(--gold) 100%);
+  background-size: 300% 100%;
+  background-position: var(--sheen, 40%) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+#s-cercle .ce-num .ce-le {
+  font-size: .15em;
+  font-weight: 500;
+  letter-spacing: .28em;
+  line-height: 1;
+  margin: .68em .35em 0 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+#s-cercle .ce-eyebrow { color: var(--gold); }
+#s-cercle .ce-title {
+  margin-top: 22px;
+  font-size: clamp(34px, 3.4vw, 54px);
+  line-height: 1.02;
+  color: var(--pearl);
+}
+#s-cercle .ce-gold { color: var(--gold); }
+
+#s-cercle .ce-list {
+  list-style: none;
+  margin: clamp(26px, 2.8vw, 40px) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--gold-line);
+}
+#s-cercle .ce-list li {
+  position: relative;
+  padding: 13px 0 13px 30px;
+  border-bottom: 1px solid var(--gold-line);
+  color: var(--pearl);
+  font-size: clamp(15.5px, .3vw + 12px, 17px);
+  line-height: 1.45;
+}
+/* repère : un petit anneau d'or, le cercle de la cuve vu du dessus */
+#s-cercle .ce-list li::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: calc(13px + .725em - 6px);
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+}
+
+#s-cercle .ce-cta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 26px;
+  margin-top: clamp(28px, 3vw, 40px);
+}
+#s-cercle .ce-btn { background: var(--gold); color: #0B0B0C; }
+#s-cercle .ce-btn:hover { background: var(--gold-hi); }
+#s-cercle .ce-note { font-size: 12.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+
+/* Entreprises : bloc secondaire, sans or, contour fin */
+#s-cercle .ce-team {
+  display: grid;
+  grid-template-columns: clamp(170px, 16vw, 230px) minmax(0, 1fr) auto;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: center;
+  margin-top: clamp(64px, 7vw, 104px);
+  padding: clamp(16px, 1.6vw, 22px);
+  background: var(--night-2);
+  border: 1px solid var(--line-light);
+}
+#s-cercle .ce-team__img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; object-position: 50% 35%; }
+#s-cercle .ce-team h3 { margin-top: 12px; font-size: clamp(24px, 2vw, 30px); }
+#s-cercle .ce-team__p { margin-top: 10px; max-width: 60ch; font-size: 15.5px; line-height: 1.55; }
+#s-cercle .ce-team__btn { white-space: nowrap; }
+
+@media (max-width: 959px) {
+  #s-cercle .ce-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  #s-cercle .ce-stage { max-width: min(520px, 100%); }
+  #s-cercle .ce-body { max-width: 600px; margin: 0 auto; text-align: center; }
+  #s-cercle .ce-list { text-align: left; }
+  #s-cercle .ce-cta { justify-content: center; }
+  #s-cercle .ce-team { grid-template-columns: 200px minmax(0, 1fr); }
+  #s-cercle .ce-team__btn { grid-column: 2; justify-self: start; }
+}
+@media (max-width: 768px) {
+  #s-cercle { padding: 72px 0 76px; }
+  #s-cercle .ce-grid { gap: 26px; }
+  #s-cercle .ce-stage { max-width: 360px; }
+  #s-cercle .ce-num { font-size: 36cqw; }
+  #s-cercle .ce-title { margin-top: 18px; font-size: clamp(30px, 8.6vw, 38px); }
+  #s-cercle .ce-list li { padding: 12px 0 12px 28px; }
+  #s-cercle .ce-list li::before { top: calc(12px + .725em - 6px); }
+  #s-cercle .ce-cta { flex-direction: column; }
+  #s-cercle .ce-team { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 18px; margin-top: 64px; text-align: center; }
+  #s-cercle .ce-team__btn { grid-column: auto; justify-self: center; white-space: normal; }
+}
